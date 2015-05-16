@@ -1,27 +1,23 @@
 package vintgug.cepnet;
 
-import java.util.Locale;
-
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.Locale;
 
 
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener {
@@ -50,15 +46,14 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        //Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "JtaKlQ5NurWM8FbL9IHNnMmmvq849WObMPnpycZS", "qCreENjPxQSE6BVW6S3gV60ojU0lCisyGudJATqD");
+
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             // do stuff with the user
         } else {
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
+            finish();
             // show the signup or login screen
         }
 

@@ -1,9 +1,7 @@
 package vintgug.cepnet;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,10 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 
 public class LoginActivity extends Activity {
@@ -24,7 +20,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_login);
         final EditText UsernameItem = (EditText) findViewById(R.id.UsernameEditText);
         final EditText PasswordItem = (EditText) findViewById(R.id.PasswordEditText);
 
@@ -34,8 +30,6 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 String mUsername = UsernameItem.getText().toString();
                 String mPassword = PasswordItem.getText().toString();
-                Parse.enableLocalDatastore(LoginActivity.this);
-                Parse.initialize(LoginActivity.this, "JtaKlQ5NurWM8FbL9IHNnMmmvq849WObMPnpycZS", "qCreENjPxQSE6BVW6S3gV60ojU0lCisyGudJATqD");
                 ParseUser.logInInBackground(mUsername, mPassword,
                         new LogInCallback() {
                             public void done(ParseUser user, ParseException e) {
@@ -59,7 +53,15 @@ public class LoginActivity extends Activity {
                         });
             }
         });
-
+        Button SignupButton = (Button) findViewById(R.id.SignupButton);
+        SignupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
