@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -49,6 +50,7 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
+            Toast.makeText(getApplicationContext(),"Hi "+currentUser.getUsername(),Toast.LENGTH_LONG).show();
             // do stuff with the user
         } else {
             Intent intent = new Intent(this, SignupActivity.class);
