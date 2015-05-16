@@ -46,10 +46,11 @@ public class SignupActivity extends Activity {
 
                         if (e == null) {
                             //Success!
-                            Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
+                            finish();
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
                             builder.setMessage(e.getMessage())
@@ -62,7 +63,15 @@ public class SignupActivity extends Activity {
                 });
             }
         });
-
+        Button LoginButton = (Button) findViewById(R.id.LoginButton);
+        LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
