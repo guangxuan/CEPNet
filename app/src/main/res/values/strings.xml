@@ -14,14 +14,27 @@
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
 
-    <string name="no_username">Please enter your username</string>
-    <string name="no_password">Please enter your password</string>
+    <string name="error_title">Oops!</string>
+    <string name="no_email">Please enter your email address.</string>
+    <string name="no_username">Please enter your username.</string>
+    <string name="no_password">Please enter your password.</string>
+    <string name="password_doesnt_match">The passwords you entered do not match.</string>
+    <string name="username_taken">The username you entered is already taken.</string>
+    <string name="invalid_email">The email address you entered is invalid.</string>
+    <string name="signup_failed">Signup Failed</string>
 
+    <string name="ok">OK</string>
     <string name="login_title">Sign in</string>
     <string name="login_username_hint">Username</string>
     <string name="login_password_hint">Password</string>
+    <string name="signup_username_hint">Username</string>
+    <string name="signup_password_hint">Password</string>
+    <string name="signup_password_hint_2">Re-enter password</string>
+    <string name="signup_email_hint">Email address</string>
     <string name="login">Login</string>
     <string name="login_success">Login successful</string>
-    <string name="sign_up_button">New here? Sign up</string>
+    <string name="login_failed">Login Failed. Please check your username and password.</string>
+    <string name="sign_up_button">New here?</string>
+    <string name="login_button">Already have an account?</string>
 
 </resources>

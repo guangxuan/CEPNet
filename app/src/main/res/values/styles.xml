@@ -13,6 +13,15 @@
         <item name="android:padding">@dimen/padding_medium</item>
     </style>
 
+    <style name="signup_title">
+        <item name="android:textSize">@dimen/text_extra_extra_large</item>
+        <item name="android:textColor">@color/main_title_text_color</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_medium</item>
+        <item name="android:layout_marginBottom">@dimen/padding_medium</item>
+    </style>
+
     <style name="login_textbox">
         <item name="android:layout_marginTop">@dimen/padding_extra_small</item>
         <item name="android:layout_width">fill_parent</item>

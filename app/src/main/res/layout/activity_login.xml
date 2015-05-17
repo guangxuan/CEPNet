@@ -72,7 +72,7 @@
             style="@android:style/Widget.ProgressBar.Inverse"
             android:layout_width="match_parent"
             android:layout_height="@dimen/progress_mid"
-            android:layout_marginTop="@dimen/padding_big"
+            android:layout_marginTop="@dimen/padding_extra_big"
             android:indeterminate="true"
             android:indeterminateDuration="1000"
             android:indeterminateOnly="true"
@@ -85,6 +85,7 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal|bottom"
             android:padding="@dimen/padding_small"
+            android:textSize="@dimen/text_mid_small"
             android:clickable="true"
             android:text="@string/sign_up_button"
             android:id="@+id/SignupButton"/>

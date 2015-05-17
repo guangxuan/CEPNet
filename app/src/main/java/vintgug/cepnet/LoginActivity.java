@@ -1,6 +1,7 @@
 package vintgug.cepnet;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,11 +21,14 @@ import com.parse.ParseUser;
 public class LoginActivity extends Activity {
 
     Toast mToast;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        builder=new AlertDialog.Builder(LoginActivity.this);
 
         final EditText UsernameItem = (EditText) findViewById(R.id.UsernameEditText);
         final EditText PasswordItem = (EditText) findViewById(R.id.PasswordEditText);
@@ -39,17 +43,27 @@ public class LoginActivity extends Activity {
 
                 String errorMsg;
 
-                String mUsername = UsernameItem.getText().toString();
+                String mUsername = UsernameItem.getText().toString().trim();
                 String mPassword = PasswordItem.getText().toString();
                 loginProgress.setVisibility(View.VISIBLE);
 
                 if(mUsername.equals("")){
                     errorMsg=getString(R.string.no_username);
-                    showToast(errorMsg);
+                    builder.setMessage(errorMsg)
+                            .setTitle(R.string.error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
                 }
                 if(mPassword.equals("")){
                     errorMsg=getString(R.string.no_password);
-                    showToast(errorMsg);
+                    builder.setMessage(errorMsg)
+                            .setTitle(R.string.error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
                 }
 
                 ParseUser.logInInBackground(mUsername, mPassword,
@@ -62,13 +76,15 @@ public class LoginActivity extends Activity {
                                             LoginActivity.this,
                                             HomeActivity.class);
                                     startActivity(intent);
-                                    showToast(R.string.login_success);
                                     finish();
-                                } else {
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            "No such user exist, please signup",
-                                            Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    builder.setMessage(getString(R.string.login_failed))
+                                            .setTitle(R.string.error_title)
+                                            .setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+
                                     PasswordItem.setText("");
                                 }
                             }

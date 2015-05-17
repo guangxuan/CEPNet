@@ -7,31 +7,67 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-
 public class SignupActivity extends Activity {
+
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        builder = new AlertDialog.Builder(SignupActivity.this);
+
         final EditText UsernameItem = (EditText) findViewById(R.id.UsernameEditText);
         final EditText PasswordItem = (EditText) findViewById(R.id.PasswordEditText);
+        final EditText PasswordItem2 = (EditText) findViewById(R.id.PasswordEditText2);
         final EditText EmailItem = (EditText) findViewById(R.id.EmailEditText);
+        TextView LoginButton = (TextView) findViewById(R.id.LoginButton);
+        TextView SignupButton = (TextView) findViewById(R.id.SignupButton);
+        ProgressBar SignupProgress=(ProgressBar)findViewById(R.id.SignupProgress);
 
-        Button SignupButton = (Button) findViewById(R.id.SignupButton);
+        LoginButton.setClickable(true);
+        SignupButton.setClickable(true);
+        SignupProgress.setVisibility(View.GONE);
+
+
         SignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mUsername = UsernameItem.getText().toString();
+                String mUsername = UsernameItem.getText().toString().trim();
                 String mPassword = PasswordItem.getText().toString();
-                String mEmail = EmailItem.getText().toString();
+                String mPassword2 = PasswordItem2.getText().toString();
+                String mEmail = EmailItem.getText().toString().trim();
+                String errorMsg="";
+                if(mUsername.equals("")){
+                    errorMsg=getString(R.string.no_username);
+                }
+                else if(mEmail.equals("")){
+                    errorMsg=getString(R.string.no_email);
+                }
+                else if(mPassword.equals("")){
+                    errorMsg=getString(R.string.no_password);
+                }
+                else if(!mPassword2.equals(mPassword)){
+                    errorMsg=getString(R.string.password_doesnt_match);
+                }
+                if(!errorMsg.equals("")) {
+                    builder.setMessage(errorMsg)
+                            .setTitle(R.string.error_title)
+                            .setPositiveButton(R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+
                 ParseUser newUser = new ParseUser();
                 newUser.setUsername(mUsername);
                 newUser.setPassword(mPassword);
@@ -45,11 +81,21 @@ public class SignupActivity extends Activity {
                             Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-                        } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-                            builder.setMessage(e.getMessage())
-                                    .setTitle("Oops!")
-                                    .setPositiveButton(android.R.string.ok, null);
+                        }
+                        else {
+                            String errorMsg="";
+                            if(e.getCode()==ParseException.USERNAME_TAKEN){
+                                errorMsg=getString(R.string.username_taken);
+                            }
+                            else if(e.getCode()==ParseException.INVALID_EMAIL_ADDRESS){
+                                errorMsg=getString(R.string.invalid_email);
+                            }
+                            else{
+                                errorMsg=getString(R.string.signup_failed);
+                            }
+                            builder.setMessage(errorMsg)
+                                    .setTitle(R.string.error_title)
+                                    .setPositiveButton(R.string.ok, null);
                             AlertDialog dialog = builder.create();
                             dialog.show();
                         }
@@ -57,7 +103,7 @@ public class SignupActivity extends Activity {
                 });
             }
         });
-        Button LoginButton = (Button) findViewById(R.id.LoginButton);
+
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

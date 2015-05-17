@@ -14,6 +14,7 @@
     <dimen name="padding_medium">16dp</dimen>
     <dimen name="padding_mid_big">18dp</dimen>
     <dimen name="padding_big">22dp</dimen>
+    <dimen name="padding_extra_big">30dp</dimen>
 
     <dimen name="padding_extra_extra_small_neg">-4dp</dimen>
     <dimen name="padding_extra_small_neg">-8dp</dimen>
@@ -30,5 +31,6 @@
     <dimen name="text_mid_large">19sp</dimen>
     <dimen name="text_mid_large_2">18sp</dimen>
     <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_mid_small">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
 </resources>
