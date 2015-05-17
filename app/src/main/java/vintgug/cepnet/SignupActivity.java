@@ -3,7 +3,6 @@ package vintgug.cepnet;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -34,8 +32,6 @@ public class SignupActivity extends Activity {
                 String mUsername = UsernameItem.getText().toString();
                 String mPassword = PasswordItem.getText().toString();
                 String mEmail = EmailItem.getText().toString();
-                Parse.enableLocalDatastore(SignupActivity.this);
-                Parse.initialize(SignupActivity.this, "JtaKlQ5NurWM8FbL9IHNnMmmvq849WObMPnpycZS", "qCreENjPxQSE6BVW6S3gV60ojU0lCisyGudJATqD");
                 ParseUser newUser = new ParseUser();
                 newUser.setUsername(mUsername);
                 newUser.setPassword(mPassword);
@@ -46,10 +42,9 @@ public class SignupActivity extends Activity {
 
                         if (e == null) {
                             //Success!
-                            Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
                             builder.setMessage(e.getMessage())
@@ -62,7 +57,15 @@ public class SignupActivity extends Activity {
                 });
             }
         });
-
+        Button LoginButton = (Button) findViewById(R.id.LoginButton);
+        LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
