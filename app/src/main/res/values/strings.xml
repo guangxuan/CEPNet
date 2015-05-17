@@ -37,4 +37,8 @@
     <string name="sign_up_button">New here?</string>
     <string name="login_button">Already have an account?</string>
 
+    <string name="username_label">username</string>
+    <string name="password_label">password</string>
+    <string name="email_label">email</string>
+
 </resources>

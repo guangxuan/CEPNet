@@ -20,11 +20,25 @@
         android:text="@string/signup_title"
         android:id="@+id/SignupButton"/>
 
+    <TextView
+        style="@style/label"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginLeft="@dimen/padding_extra_extra_small"
+        android:layout_marginRight="@dimen/padding_extra_extra_small"
+        android:text="@string/username_label"/>
+
     <EditText
         style="@style/login_textbox"
         android:inputType="text"
         android:hint="@string/signup_username_hint"
         android:id="@+id/UsernameEditText"/>
+
+    <TextView
+        style="@style/label"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginLeft="@dimen/padding_extra_extra_small"
+        android:layout_marginRight="@dimen/padding_extra_extra_small"
+        android:text="@string/password_label"/>
 
     <EditText
         style="@style/login_textbox"
@@ -37,6 +51,13 @@
         android:inputType="textPassword"
         android:hint="@string/signup_password_hint_2"
         android:id="@+id/PasswordEditText2"/>
+
+    <TextView
+        style="@style/label"
+        android:layout_marginLeft="@dimen/padding_extra_extra_small"
+        android:layout_marginRight="@dimen/padding_extra_extra_small"
+        android:layout_marginTop="@dimen/padding_small"
+        android:text="@string/email_label"/>
 
     <EditText
         style="@style/login_textbox"
