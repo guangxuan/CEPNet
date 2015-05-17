@@ -8,10 +8,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_signup">SignupActivity</string>
-    <string name="login_title">Log In</string>
     <string name="signup_title">Sign Up</string>
     <string name="notnew_title">Not new?</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
+
+    <string name="no_username">Please enter your username</string>
+    <string name="no_password">Please enter your password</string>
+
+    <string name="login_title">Sign in</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login">Login</string>
+    <string name="login_success">Login successful</string>
+    <string name="sign_up_button">New here? Sign up</string>
+
 </resources>

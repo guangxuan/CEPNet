@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -17,43 +19,64 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {
 
+    Toast mToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         final EditText UsernameItem = (EditText) findViewById(R.id.UsernameEditText);
         final EditText PasswordItem = (EditText) findViewById(R.id.PasswordEditText);
 
-        Button LoginButton = (Button) findViewById(R.id.LoginButton);
+        final ProgressBar loginProgress=(ProgressBar)findViewById(R.id.loginProgress);
+
+        ImageButton LoginButton = (ImageButton) findViewById(R.id.LoginButton);
+        LoginButton.setClickable(true);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String errorMsg;
+
                 String mUsername = UsernameItem.getText().toString();
                 String mPassword = PasswordItem.getText().toString();
+                loginProgress.setVisibility(View.VISIBLE);
+
+                if(mUsername.equals("")){
+                    errorMsg=getString(R.string.no_username);
+                    showToast(errorMsg);
+                }
+                if(mPassword.equals("")){
+                    errorMsg=getString(R.string.no_password);
+                    showToast(errorMsg);
+                }
+
                 ParseUser.logInInBackground(mUsername, mPassword,
                         new LogInCallback() {
                             public void done(ParseUser user, ParseException e) {
-                                if (user != null) {
+                                loginProgress.setVisibility(View.GONE);
+                                if (e == null) {
                                     // If user exist and authenticated, send user to Welcome.class
                                     Intent intent = new Intent(
                                             LoginActivity.this,
                                             HomeActivity.class);
                                     startActivity(intent);
-                                    Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in",
-                                            Toast.LENGTH_LONG).show();
+                                    showToast(R.string.login_success);
                                     finish();
                                 } else {
                                     Toast.makeText(
                                             getApplicationContext(),
                                             "No such user exist, please signup",
-                                            Toast.LENGTH_LONG).show();
+                                            Toast.LENGTH_SHORT).show();
+                                    PasswordItem.setText("");
                                 }
                             }
                         });
             }
         });
-        Button SignupButton = (Button) findViewById(R.id.SignupButton);
+        TextView SignupButton = (TextView) findViewById(R.id.SignupButton);
+        SignupButton.setClickable(true);
         SignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,4 +108,20 @@ public class LoginActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    void showToast(String text){
+        if(mToast!=null){
+            mToast.cancel();
+        }
+        mToast=Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT);
+        mToast.show();
+    }
+    void showToast(int text){
+        if(mToast!=null){
+            mToast.cancel();
+        }
+        mToast=Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT);
+        mToast.show();
+    }
+
 }
