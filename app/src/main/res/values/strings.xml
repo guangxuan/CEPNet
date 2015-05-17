@@ -41,4 +41,9 @@
     <string name="password_label">password</string>
     <string name="email_label">email</string>
 
+    <string name="not_verified">Your email address is not yet verified. Please check your email and verify your email address.</string>
+    <string name="signup_success_title">Success!</string>
+    <string name="signup_success_1">Your CEPnet account has been successfully created. However, your email address needs to be verified before you can use all the features. An email will be sent to</string>
+    <string name="signup_success_2">with instructions on how to verify your email address.</string>
+
 </resources>
