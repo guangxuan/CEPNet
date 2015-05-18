@@ -33,7 +33,7 @@ public class SignupActivity extends Activity {
         final EditText EmailItem = (EditText) findViewById(R.id.EmailEditText);
         TextView LoginButton = (TextView) findViewById(R.id.LoginButton);
         TextView SignupButton = (TextView) findViewById(R.id.SignupButton);
-        ProgressBar SignupProgress=(ProgressBar)findViewById(R.id.SignupProgress);
+        final ProgressBar SignupProgress=(ProgressBar)findViewById(R.id.SignupProgress);
 
         LoginButton.setClickable(true);
         SignupButton.setClickable(true);
@@ -61,11 +61,13 @@ public class SignupActivity extends Activity {
                     errorMsg=getString(R.string.password_doesnt_match);
                 }
                 if(!errorMsg.equals("")) {
+                    builder=new AlertDialog.Builder(SignupActivity.this);
                     builder.setMessage(errorMsg)
                             .setTitle(R.string.error_title)
                             .setPositiveButton(R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    AlertDialog alert = builder.create();
+                    alert.setCanceledOnTouchOutside(false);
+                    alert.show();
                     return;
                 }
 
@@ -73,12 +75,16 @@ public class SignupActivity extends Activity {
                 newUser.setUsername(mUsername);
                 newUser.setPassword(mPassword);
                 newUser.setEmail(mEmail);
+
+                SignupProgress.setVisibility(View.VISIBLE);
+
                 newUser.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
-
+                        SignupProgress.setVisibility(View.GONE);
                         if (e == null) {
                             //Success!
+                            builder=new AlertDialog.Builder(SignupActivity.this);
                             builder.setTitle(R.string.signup_success_title);
                             builder.setMessage(getString(R.string.signup_success_1) + " " + mEmail + " " + getString(R.string.signup_success_2));
                             builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
@@ -90,7 +96,19 @@ public class SignupActivity extends Activity {
                                     finish();
                                 }
                             });
-                            builder.create().show();
+                            AlertDialog alert= builder.create();
+                            alert.setCanceledOnTouchOutside(false);
+                            alert.setCancelable(false);
+                            alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    intent.putExtra(LoginActivity.INTENT_USERNAME, mUsername);
+                                    finish();
+                                }
+                            });
+                            alert.show();
                         }
                         else {
                             String errorMsg;
@@ -103,10 +121,13 @@ public class SignupActivity extends Activity {
                             else{
                                 errorMsg=getString(R.string.signup_failed);
                             }
+                            builder=new AlertDialog.Builder(SignupActivity.this);
                             builder.setMessage(errorMsg)
                                     .setTitle(R.string.error_title)
                                     .setPositiveButton(R.string.ok, null);
-                            builder.create().show();
+                            AlertDialog alert=builder.create();
+                            alert.setCanceledOnTouchOutside(false);
+                            alert.show();
                         }
                     }
                 });

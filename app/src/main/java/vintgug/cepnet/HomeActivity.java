@@ -47,13 +47,13 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-
+        ParseUser.logOut(); //TODO: ERASE THIS AFTERWARD
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             Toast.makeText(getApplicationContext(),"Hi "+currentUser.getUsername(),Toast.LENGTH_LONG).show();
             // do stuff with the user
         } else {
-            Intent intent = new Intent(this, SignupActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             // show the signup or login screen

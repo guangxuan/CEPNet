@@ -60,19 +60,26 @@ public class LoginActivity extends Activity {
                 loginProgress.setVisibility(View.VISIBLE);
 
                 if(mUsername.equals("")){
+                    builder=new AlertDialog.Builder(LoginActivity.this);
                     errorMsg=getString(R.string.no_username);
                     builder.setMessage(errorMsg)
                             .setTitle(R.string.error_title)
                             .setPositiveButton(android.R.string.ok, null);
-                    builder.create().show();
+                    AlertDialog alert=builder.create();
+                    alert.setCanceledOnTouchOutside(false);
+                    alert.show();
                     return;
                 }
                 if(mPassword.equals("")){
+                    builder=new AlertDialog.Builder(LoginActivity.this);
                     errorMsg=getString(R.string.no_password);
                     builder.setMessage(errorMsg)
                             .setTitle(R.string.error_title)
                             .setPositiveButton(android.R.string.ok, null);
                     builder.create().show();
+                    AlertDialog alert=builder.create();
+                    alert.setCanceledOnTouchOutside(false);
+                    alert.show();
                     return;
                 }
 
@@ -91,6 +98,7 @@ public class LoginActivity extends Activity {
                                             if (e == null) {
                                                 // The query was successful.
                                                 if (!objects.get(0).getBoolean("emailVerified")) {
+                                                    builder=new AlertDialog.Builder(LoginActivity.this);
                                                     builder.setMessage(R.string.not_verified)
                                                             .setTitle(R.string.error_title)
                                                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -103,17 +111,23 @@ public class LoginActivity extends Activity {
                                                                     finish();
                                                                 }
                                                             });
-                                                    builder.create().show();
+                                                    AlertDialog alert=builder.create();
+                                                    alert.setCanceledOnTouchOutside(false);
+                                                    alert.setCancelable(false);
+                                                    alert.show();
                                                 }
                                             }
                                         }
                                     });
                                 }
                                 else {
+                                    builder=new AlertDialog.Builder(LoginActivity.this);
                                     builder.setMessage(getString(R.string.login_failed))
                                             .setTitle(R.string.error_title)
                                             .setPositiveButton(android.R.string.ok, null);
-                                    builder.create().show();
+                                    AlertDialog alert=builder.create();
+                                    alert.setCanceledOnTouchOutside(false);
+                                    alert.show();
 
                                     PasswordItem.setText("");
                                 }
