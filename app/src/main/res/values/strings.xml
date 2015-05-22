@@ -45,5 +45,17 @@
     <string name="signup_success_title">Success!</string>
     <string name="signup_success_1">Your CEPnet account has been successfully created. However, your email address needs to be verified before you can use all the features. An email will be sent to</string>
     <string name="signup_success_2">with instructions on how to verify your email address.</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="dummy">Dummy Text</string>
+    <string name="nav_entry_1">Home</string>
+    <string name="nav_entry_2">Friends</string>
+    <string name="nav_entry_3">Homework</string>
+    <string name="nav_entry_4">Classes</string>
 
 </resources>
