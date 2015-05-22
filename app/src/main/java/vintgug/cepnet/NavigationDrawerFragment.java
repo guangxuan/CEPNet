@@ -17,6 +17,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -24,6 +29,13 @@ import android.view.ViewGroup;
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 public class NavigationDrawerFragment extends Fragment {
+
+    static final int NAV_PROFILE=R.id.navProfile;
+
+    static final int NAV_ENTRY_1=R.id.navEntry1;
+    static final int NAV_ENTRY_2=R.id.navEntry2;
+    static final int NAV_ENTRY_3=R.id.navEntry3;
+    static final int NAV_ENTRY_4=R.id.navEntry4;
 
     /**
      * Remember the position of the selected item.
@@ -44,9 +56,28 @@ public class NavigationDrawerFragment extends Fragment {
     private View mDrawerView;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedPosition = NAV_ENTRY_1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+
+    ArrayList<TextView> navTextList = new ArrayList<>();
+    ArrayList<ImageView> navIconList = new ArrayList<>();
+    ArrayList<FrameLayout> navEntryList = new ArrayList<>();
+
+    TextView navText1;
+    TextView navText2;
+    TextView navText3;
+    TextView navText4;
+    ImageView navIcon1;
+    ImageView navIcon2;
+    ImageView navIcon3;
+    ImageView navIcon4;
+
+    FrameLayout navProfile;
+    FrameLayout nav1;
+    FrameLayout nav2;
+    FrameLayout nav3;
+    FrameLayout nav4;
 
     public NavigationDrawerFragment() {
     }
@@ -65,8 +96,6 @@ public class NavigationDrawerFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
-        // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -81,6 +110,51 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerView = inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+
+        navText1=(TextView)mDrawerView.findViewById(R.id.navText1);
+        navText2=(TextView)mDrawerView.findViewById(R.id.navText2);
+        navText3=(TextView)mDrawerView.findViewById(R.id.navText3);
+        navText4=(TextView)mDrawerView.findViewById(R.id.navText4);
+
+        navIcon1=(ImageView)mDrawerView.findViewById(R.id.navIcon1);
+        navIcon2=(ImageView)mDrawerView.findViewById(R.id.navIcon2);
+        navIcon3=(ImageView)mDrawerView.findViewById(R.id.navIcon3);
+        navIcon4=(ImageView)mDrawerView.findViewById(R.id.navIcon4);
+
+        navProfile=(FrameLayout)mDrawerView.findViewById(NAV_PROFILE);
+        nav1=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_1);
+        nav2=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_2);
+        nav3=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_3);
+        nav4=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_4);
+
+        navTextList.clear();
+        navIconList.clear();
+        navEntryList.clear();
+
+        navTextList.add(navText1);
+        navTextList.add(navText2);
+        navTextList.add(navText3);
+        navTextList.add(navText4);
+
+        navIconList.add(navIcon1);
+        navIconList.add(navIcon2);
+        navIconList.add(navIcon3);
+        navIconList.add(navIcon4);
+
+        navEntryList.add(navProfile);
+        navEntryList.add(nav1);
+        navEntryList.add(nav2);
+        navEntryList.add(nav3);
+        navEntryList.add(nav4);
+
+        for(FrameLayout f:navEntryList){
+            f.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectItem(v.getId());
+                }
+            });
+        }
 
         //Edit this stuff to change functionality
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,6 +173,11 @@ public class NavigationDrawerFragment extends Fragment {
 //                        getString(R.string.title_section3),
 //                }));
 //        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+
+        // Select either the default item (0) or the last selected item.
+        selectItem(mCurrentSelectedPosition);
+
         return mDrawerView;
     }
 
@@ -182,11 +261,39 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
+        //change menu colours
+        unselectAll();
+        if(position==NAV_ENTRY_1){
+            navText1.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon1.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+        }
+        else if(position==NAV_ENTRY_2){
+            navText2.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon2.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+        }
+        else if(position==NAV_ENTRY_3){
+            navText3.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon3.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+        }
+        else if(position==NAV_ENTRY_4){
+            navText4.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon4.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+        }
+
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
+        }
+    }
+
+    private void unselectAll(){
+        for(TextView t:navTextList){
+            t.setTextColor(getResources().getColor(R.color.nav_entry_unselected));
+        }
+        for(ImageView i:navIconList){
+            i.setColorFilter(getResources().getColor(R.color.nav_entry_unselected));
         }
     }
 

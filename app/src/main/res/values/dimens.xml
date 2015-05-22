@@ -25,7 +25,7 @@
     <dimen name="progress_mid">40dp</dimen>
 
     <dimen name="picture_small">40dp</dimen>
-    <dimen name="nav_entry_icon">24dp</dimen>
+    <dimen name="nav_entry_icon">22dp</dimen>
 
     <dimen name="label_height">38dp</dimen>
     <dimen name="text_extra_extra_large">28sp</dimen>
