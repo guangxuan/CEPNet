@@ -17,7 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/padding_extra_small">
+            android:layout_margin="@dimen/padding_extra_extra_small"
+            android:layout_marginLeft="@dimen/padding_extra_small"
+            android:layout_marginRight="@dimen/padding_extra_small">
 
             <ImageView
                 android:layout_width="@dimen/picture_small"
@@ -38,7 +40,7 @@
                     android:gravity="start"
                     android:text="@string/dummy"
                     android:textColor="@color/nav_profile_text"
-                    android:textSize="@dimen/text_large"
+                    android:textSize="@dimen/text_mid_large"
                     android:padding="@dimen/padding_extra_small"
                     android:layout_marginBottom="@dimen/padding_small_neg"/>
 
