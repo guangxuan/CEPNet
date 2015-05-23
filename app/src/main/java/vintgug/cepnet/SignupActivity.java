@@ -2,6 +2,7 @@ package vintgug.cepnet;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,7 +33,7 @@ public class SignupActivity extends Activity {
         final EditText EmailItem = (EditText) findViewById(R.id.EmailEditText);
         TextView LoginButton = (TextView) findViewById(R.id.LoginButton);
         TextView SignupButton = (TextView) findViewById(R.id.SignupButton);
-        ProgressBar SignupProgress=(ProgressBar)findViewById(R.id.SignupProgress);
+        final ProgressBar SignupProgress=(ProgressBar)findViewById(R.id.SignupProgress);
 
         LoginButton.setClickable(true);
         SignupButton.setClickable(true);
@@ -42,10 +43,10 @@ public class SignupActivity extends Activity {
         SignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mUsername = UsernameItem.getText().toString().trim();
+                final String mUsername = UsernameItem.getText().toString().trim();
                 String mPassword = PasswordItem.getText().toString();
                 String mPassword2 = PasswordItem2.getText().toString();
-                String mEmail = EmailItem.getText().toString().trim();
+                final String mEmail = EmailItem.getText().toString().trim();
                 String errorMsg="";
                 if(mUsername.equals("")){
                     errorMsg=getString(R.string.no_username);
@@ -60,11 +61,13 @@ public class SignupActivity extends Activity {
                     errorMsg=getString(R.string.password_doesnt_match);
                 }
                 if(!errorMsg.equals("")) {
+                    builder=new AlertDialog.Builder(SignupActivity.this);
                     builder.setMessage(errorMsg)
                             .setTitle(R.string.error_title)
                             .setPositiveButton(R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    AlertDialog alert = builder.create();
+                    alert.setCanceledOnTouchOutside(false);
+                    alert.show();
                     return;
                 }
 
@@ -72,18 +75,43 @@ public class SignupActivity extends Activity {
                 newUser.setUsername(mUsername);
                 newUser.setPassword(mPassword);
                 newUser.setEmail(mEmail);
+
+                SignupProgress.setVisibility(View.VISIBLE);
+
                 newUser.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
-
+                        SignupProgress.setVisibility(View.GONE);
                         if (e == null) {
                             //Success!
-                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
+                            builder=new AlertDialog.Builder(SignupActivity.this);
+                            builder.setTitle(R.string.signup_success_title);
+                            builder.setMessage(getString(R.string.signup_success_1) + " " + mEmail + " " + getString(R.string.signup_success_2));
+                            builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    intent.putExtra(LoginActivity.INTENT_USERNAME, mUsername);
+                                    finish();
+                                }
+                            });
+                            AlertDialog alert= builder.create();
+                            alert.setCanceledOnTouchOutside(false);
+                            alert.setCancelable(false);
+                            alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    intent.putExtra(LoginActivity.INTENT_USERNAME, mUsername);
+                                    finish();
+                                }
+                            });
+                            alert.show();
                         }
                         else {
-                            String errorMsg="";
+                            String errorMsg;
                             if(e.getCode()==ParseException.USERNAME_TAKEN){
                                 errorMsg=getString(R.string.username_taken);
                             }
@@ -93,11 +121,13 @@ public class SignupActivity extends Activity {
                             else{
                                 errorMsg=getString(R.string.signup_failed);
                             }
+                            builder=new AlertDialog.Builder(SignupActivity.this);
                             builder.setMessage(errorMsg)
                                     .setTitle(R.string.error_title)
                                     .setPositiveButton(R.string.ok, null);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
+                            AlertDialog alert=builder.create();
+                            alert.setCanceledOnTouchOutside(false);
+                            alert.show();
                         }
                     }
                 });
