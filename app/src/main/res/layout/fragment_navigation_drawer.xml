@@ -75,7 +75,7 @@
 
             <ImageView
                 style="@style/nav_entry_icon"
-                android:src="@drawable/plus"
+                android:src="@drawable/home"
                 android:id="@+id/navIcon1"/>
 
             <TextView
@@ -105,7 +105,7 @@
 
             <ImageView
                 style="@style/nav_entry_icon"
-                android:src="@drawable/plus"
+                android:src="@drawable/group"
                 android:id="@+id/navIcon2"/>
 
             <TextView
@@ -135,7 +135,7 @@
 
             <ImageView
                 style="@style/nav_entry_icon"
-                android:src="@drawable/plus"
+                android:src="@drawable/homework"
                 android:id="@+id/navIcon3"/>
 
             <TextView
@@ -165,7 +165,7 @@
 
             <ImageView
                 style="@style/nav_entry_icon"
-                android:src="@drawable/plus"
+                android:src="@drawable/teacher"
                 android:id="@+id/navIcon4"/>
 
             <TextView
