@@ -112,14 +112,19 @@ public class SignupActivity extends Activity {
                         }
                         else {
                             String errorMsg;
-                            if(e.getCode()==ParseException.USERNAME_TAKEN){
-                                errorMsg=getString(R.string.username_taken);
-                            }
-                            else if(e.getCode()==ParseException.INVALID_EMAIL_ADDRESS){
-                                errorMsg=getString(R.string.invalid_email);
-                            }
-                            else{
-                                errorMsg=getString(R.string.signup_failed);
+                            switch(e.getCode()) {
+                                case ParseException.USERNAME_TAKEN:
+                                    errorMsg=getString(R.string.username_taken);
+                                    break;
+                                case ParseException.INVALID_EMAIL_ADDRESS:
+                                    errorMsg=getString(R.string.invalid_email);
+                                    break;
+                                case ParseException.EMAIL_TAKEN:
+                                    errorMsg=getString(R.string.username_taken);
+                                    break;
+                                default:
+                                    errorMsg=getString(R.string.signup_failed);
+                                    break;
                             }
                             builder=new AlertDialog.Builder(SignupActivity.this);
                             builder.setMessage(errorMsg)
