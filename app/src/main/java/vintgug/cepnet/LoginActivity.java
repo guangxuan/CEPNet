@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
                                     // If user exist and authenticated, send user to home
 
                                     ParseQuery<ParseUser> query = ParseUser.getQuery();
-                                    query.whereEqualTo("Username", mUsername);
+                                    query.whereEqualTo("username", mUsername);
                                     query.setLimit(1);
                                     query.findInBackground(new FindCallback<ParseUser>() {
                                         public void done(List<ParseUser> objects, ParseException e) {
@@ -107,6 +107,25 @@ public class LoginActivity extends Activity {
                                                                     Intent intent = new Intent(
                                                                             LoginActivity.this,
                                                                             TabActivity.class);
+                                                                    startActivity(intent);
+                                                                    finish();
+                                                                }
+                                                            });
+                                                    AlertDialog alert=builder.create();
+                                                    alert.setCanceledOnTouchOutside(false);
+                                                    alert.setCancelable(false);
+                                                    alert.show();
+                                                }
+                                                else{
+                                                    builder=new AlertDialog.Builder(LoginActivity.this);
+                                                    builder.setMessage(R.string.login_success)
+                                                            .setTitle(R.string.login_success)
+                                                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    Intent intent = new Intent(
+                                                                            LoginActivity.this,
+                                                                            HomeActivity.class);
                                                                     startActivity(intent);
                                                                     finish();
                                                                 }

@@ -21,6 +21,7 @@
     <string name="password_doesnt_match">The passwords you entered do not match.</string>
     <string name="username_taken">The username you entered is already taken.</string>
     <string name="invalid_email">The email address you entered is invalid.</string>
+    <string name="email_taken">The email you entered is already taken.</string>
     <string name="signup_failed">Signup Failed</string>
 
     <string name="ok">OK</string>
@@ -57,5 +58,7 @@
     <string name="nav_entry_2">Friends</string>
     <string name="nav_entry_3">Homework</string>
     <string name="nav_entry_4">Classes</string>
+
+    <string name="profile_title">User Profile</string>
 
 </resources>

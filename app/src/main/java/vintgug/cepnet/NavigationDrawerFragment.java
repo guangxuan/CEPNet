@@ -30,12 +30,12 @@ import java.util.ArrayList;
  */
 public class NavigationDrawerFragment extends Fragment {
 
-    static final int NAV_PROFILE=R.id.navProfile;
+    public static final int NAV_PROFILE=R.id.navProfile;
 
-    static final int NAV_ENTRY_1=R.id.navEntry1;
-    static final int NAV_ENTRY_2=R.id.navEntry2;
-    static final int NAV_ENTRY_3=R.id.navEntry3;
-    static final int NAV_ENTRY_4=R.id.navEntry4;
+    public static final int NAV_ENTRY_1=R.id.navEntry1;
+    public static final int NAV_ENTRY_2=R.id.navEntry2;
+    public static final int NAV_ENTRY_3=R.id.navEntry3;
+    public static final int NAV_ENTRY_4=R.id.navEntry4;
 
     /**
      * Remember the position of the selected item.
