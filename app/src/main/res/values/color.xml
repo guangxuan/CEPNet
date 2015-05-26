@@ -15,9 +15,10 @@
 
     <color name="nav_drawer_divider">#ff1c1c1c</color>
     <color name="nav_drawer_background">#ff393939</color>
-    <color name="nav_profile_background">#ff232323</color>
+    <color name="nav_profile_background">#ff1a1a1a</color>
     <color name="nav_profile_text">#fff0f0f0</color>
-    <color name="nav_entry_unselected">#ff717171</color>
+    <color name="nav_entry_unselected">#ff818181</color>
     <color name="nav_entry_selected">#ffdadada</color>
+    <color name="nav_background_selected">#ff262626</color>
 
 </resources>

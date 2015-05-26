@@ -1,8 +1,5 @@
 package vintgug.cepnet;
 
-/**
- * Created by GuangXuan on 17/5/2015.
- */
 
 import android.app.Application;
 
@@ -13,6 +10,7 @@ public class App extends Application {
     @Override public void onCreate() {
         super.onCreate();
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "JtaKlQ5NurWM8FbL9IHNnMmmvq849WObMPnpycZS", "qCreENjPxQSE6BVW6S3gV60ojU0lCisyGudJATqD");
+        Parse.initialize(this, "6YCw0iv9aqg8ylFIvcypYDiKCl1HB2ULzjec6P8k", "6xJHvrNG3Cj4gxpoV0FHiSaCuiBa5zs2Y9OYup68");
+        //Parse.initialize(this, "JtaKlQ5NurWM8FbL9IHNnMmmvq849WObMPnpycZS", "qCreENjPxQSE6BVW6S3gV60ojU0lCisyGudJATqD"); GUG's thing
     }
 }

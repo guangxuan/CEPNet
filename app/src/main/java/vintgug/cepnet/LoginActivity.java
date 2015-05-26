@@ -5,8 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -57,7 +55,6 @@ public class LoginActivity extends Activity {
 
                 final String mUsername = UsernameItem.getText().toString().trim();
                 String mPassword = PasswordItem.getText().toString();
-                loginProgress.setVisibility(View.VISIBLE);
 
                 if(mUsername.equals("")){
                     builder=new AlertDialog.Builder(LoginActivity.this);
@@ -82,6 +79,7 @@ public class LoginActivity extends Activity {
                     alert.show();
                     return;
                 }
+                loginProgress.setVisibility(View.VISIBLE);
 
                 ParseUser.logInInBackground(mUsername, mPassword,
                         new LogInCallback() {
@@ -164,28 +162,6 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_signup, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     void showToast(String text){

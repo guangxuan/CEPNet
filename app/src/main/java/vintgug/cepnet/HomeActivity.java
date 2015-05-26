@@ -1,5 +1,7 @@
 package vintgug.cepnet;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +10,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.LogOutCallback;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 
@@ -26,6 +31,8 @@ public class HomeActivity extends ActionBarActivity
 
     ParseUser currentUser;
 
+    AlertDialog.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +40,8 @@ public class HomeActivity extends ActionBarActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        builder = new AlertDialog.Builder(HomeActivity.this);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -134,8 +143,37 @@ public class HomeActivity extends ActionBarActivity
             return true;
         }
 
+        if(id==R.id.action_logout){
+            logout();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+    void logout(){
+        final Context context=HomeActivity.this;
+        ParseUser.logOutInBackground(new LogOutCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    builder = new AlertDialog.Builder(context);
+                    builder.setTitle(R.string.logout_failed_title);
+                    builder.setMessage(R.string.logout_failed);
+                    builder.setPositiveButton(getString(R.string.ok), null);
+                    AlertDialog alert = builder.create();
+                    alert.setCanceledOnTouchOutside(false);
+                    alert.setCancelable(false);
+                    alert.show();
+                }
+            }
+        });
+    }
+
 //
 //    /**
 //     * A placeholder fragment containing a simple view.

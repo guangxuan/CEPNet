@@ -11,6 +11,7 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
+    <string name="action_logout">Logout</string>
 
     <string name="error_title">Oops!</string>
     <string name="no_email">Please enter your email address.</string>
@@ -21,6 +22,9 @@
     <string name="invalid_email">The email address you entered is invalid.</string>
     <string name="email_taken">The email you entered is already taken.</string>
     <string name="signup_failed">Signup Failed</string>
+
+    <string name="logout_failed_title">Logout Failed</string>
+    <string name="logout_failed">Logout was unsuccessful. Please try again.</string>
 
     <string name="ok">OK</string>
     <string name="login_title">Sign in</string>
@@ -48,8 +52,6 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
 
     <string name="dummy">Dummy Text</string>
     <string name="nav_entry_1">Home</string>
