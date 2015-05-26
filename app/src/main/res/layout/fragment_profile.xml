@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="vintgug.cepnet.ProfileFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_title"
+            android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/UsernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guang"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/EmailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="guangxuan99rulang@yahoo.com.sg"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+</FrameLayout>
