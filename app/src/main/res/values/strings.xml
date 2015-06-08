@@ -12,6 +12,10 @@
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
     <string name="action_logout">Logout</string>
+    <string name="action_edit_profile">Edit Profile</string>
+    <string name="action_unfriend_profile">Remove Friend</string>
+    <string name="action_friend_profile">Add Friend</string>
+    <string name="action_message_profile">Message Friend</string>
 
     <string name="error_title">Oops!</string>
     <string name="no_email">Please enter your email address.</string>
@@ -43,8 +47,10 @@
     <string name="username_label">username</string>
     <string name="password_label">password</string>
     <string name="email_label">email</string>
+    <string name="status_label">status</string>
 
     <string name="not_verified">Your email address is not yet verified. Please check your email and verify your email address.</string>
+    <string name="not_verified_title">Email Verification</string>
     <string name="signup_success_title">Success!</string>
     <string name="signup_success_1">Your CEPnet account has been successfully created. However, your email address needs to be verified before you can use all the features. An email will be sent to</string>
     <string name="signup_success_2">with instructions on how to verify your email address.</string>
@@ -54,11 +60,22 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="dummy">Dummy Text</string>
+    <string name="dummy1">The quick brown muzammil jumped over the lazy muzammil. HUehuehuheuhue 360noScope MLG360 get rekt scrubs. #420blazeit Sm0keweeEveryday.\n YOLO</string>
+    <string name="dummy_email">trisomy_21@spectrum.au</string>
+    <string name="verified">Unverified</string>
+    <string name="unverified">Unverified</string>
     <string name="nav_entry_1">Home</string>
     <string name="nav_entry_2">Friends</string>
     <string name="nav_entry_3">Homework</string>
     <string name="nav_entry_4">Classes</string>
 
     <string name="profile_title">User Profile</string>
+    <string name="no_friend">You don\'t have any friends</string>
+    <string name="find_friend">Find and add them (if you have any) by using the search feature at the top of the screen.</string>
+    <string name="added_friend_1">You have added</string>
+    <string name="added_friend_2">as a friend.</string>
+    <string name="removed_friend_1">You have removed</string>
+    <string name="removed_friend_2">from your friends list.</string>
+    <string name="no_status">Hi!</string>
 
 </resources>

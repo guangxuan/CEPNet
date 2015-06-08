@@ -1,32 +1,92 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="vintgug.cepnet.ProfileFragment">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin_custom"
+    android:paddingRight="@dimen/activity_horizontal_margin_custom"
+    android:layout_marginLeft="@dimen/padding_medium"
+    android:layout_marginRight="@dimen/padding_medium"
+    android:paddingTop="@dimen/activity_vertical_margin_custom"
+    android:paddingBottom="@dimen/activity_vertical_margin_custom"
+    tools:context="vintgug.cepnet.ProfileFragment"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/padding_extra_small"
         >
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="@dimen/profile_picture_main"
+            android:layout_height="@dimen/profile_picture_main"
+            android:src="@drawable/user"
+            android:scaleType="centerInside"
+            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/profile_title"
-            android:textSize="30sp"
-            android:layout_gravity="center_horizontal"
-            />
-        <TextView
-            android:id="@+id/UsernameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guang"
-            android:layout_gravity="center_horizontal"/>
-        <TextView
-            android:id="@+id/EmailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="guangxuan99rulang@yahoo.com.sg"
-            android:layout_gravity="center_horizontal"/>
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/padding_extra_extra_small"
+            android:layout_marginBottom="@dimen/padding_extra_extra_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginLeft="@dimen/padding_small"
+            >
+            <TextView
+                android:id="@+id/UsernameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_extra_extra_large"
+                android:textColor="@color/profile_title_color"
+                android:layout_gravity="start|center_horizontal"
+                android:text="@string/dummy"
+                android:singleLine="true"
+                android:ellipsize="marquee"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_extra_extra_small"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/EmailTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_medium"
+                    android:text="@string/dummy_email"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:layout_gravity="start|center_horizontal"/>
+                <TextView
+                    android:id="@+id/EmailVerifiedTextView"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginStart="@dimen/padding_extra_small"
+                    android:layout_marginLeft="@dimen/padding_extra_small"
+                    android:text="@string/unverified"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_gravity="end|center_horizontal"/>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-</FrameLayout>
+    <TextView
+        style="@style/label"
+        android:padding="0dp"
+        android:layout_marginTop="@dimen/padding_extra_big"
+        android:layout_marginBottom="@dimen/padding_extra_extra_small"
+        android:text="@string/status_label"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_medium"
+        android:text="@string/dummy1"
+        android:id="@+id/StatusTextView"/>
+
+</LinearLayout>

@@ -21,4 +21,8 @@
     <color name="nav_entry_selected">#ffdadada</color>
     <color name="nav_background_selected">#ff262626</color>
 
+    <color name="profile_title_color">#ff252525</color>
+    <color name="email_unverified">#ffbe2300</color>
+    <color name="email_verified">#ff288300</color>
+
 </resources>

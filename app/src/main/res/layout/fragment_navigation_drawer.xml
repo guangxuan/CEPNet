@@ -25,8 +25,8 @@
                 android:layout_width="@dimen/picture_small"
                 android:layout_height="@dimen/picture_small"
                 android:layout_margin="@dimen/padding_extra_small"
-                android:src="@drawable/plus"
-                android:scaleType="center"
+                android:src="@drawable/user"
+                android:scaleType="centerInside"
                 android:layout_gravity="center_vertical"/>
 
             <LinearLayout
@@ -37,9 +37,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/navProfileName"
                     android:gravity="start"
                     android:text="@string/dummy"
                     android:textColor="@color/nav_profile_text"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
                     android:textSize="@dimen/text_mid_large"
                     android:padding="@dimen/padding_extra_small"
                     android:layout_marginBottom="@dimen/padding_small_neg"/>
@@ -48,6 +51,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:id="@+id/navProfileEmail"
                     android:text="@string/dummy"
                     android:textColor="@color/nav_profile_text"
                     android:textSize="@dimen/text_mid_small"
@@ -63,7 +69,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_marginTop="@dimen/padding_extra_extra_small"
         android:id="@+id/navEntry1">
 
         <LinearLayout

@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_message_profile"
+        android:title="@string/action_message_profile"
+        android:icon="@drawable/speechwhite"
+        android:orderInCategory="150"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_unfriend_profile"
+        android:title="@string/action_unfriend_profile"
+        android:icon="@drawable/removefriendwhite"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"/>
+</menu>

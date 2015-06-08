@@ -17,17 +17,21 @@ import com.parse.ParseUser;
 
 
 public class HomeActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks , FriendFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
+    public static final String FRIENDS="friends";
+    public static final String FIELD_STATUS="status";
+
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private String mTitle;
+    int mCurrentPos;
 
     ParseUser currentUser;
 
@@ -54,7 +58,18 @@ public class HomeActivity extends ActionBarActivity
             finish();
         }
 
+        mTitle=getString(R.string.app_name);
+        getSupportActionBar().setTitle(mTitle);
+
         onNavigationDrawerItemSelected(NavigationDrawerFragment.NAV_ENTRY_1);
+        mCurrentPos=NavigationDrawerFragment.NAV_ENTRY_1;
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                restoreActionBar();
+            }
+        });
 
     }
 
@@ -65,44 +80,58 @@ public class HomeActivity extends ActionBarActivity
         android.support.v4.app.FragmentTransaction transaction=fragmentManager.beginTransaction();
         switch(position){
             case NavigationDrawerFragment.NAV_PROFILE:
-                transaction.replace(R.id.container, ProfileFragment.newInstance());
-                mTitle = getString(R.string.title_sectionProfile);
+                if(mCurrentPos!=NavigationDrawerFragment.NAV_PROFILE) {
+                    transaction.replace(R.id.container, ProfileFragment.newInstance(ParseUser.getCurrentUser().getObjectId()));
+                    transaction.addToBackStack("Navigation");
+                }
+                //mTitle = getString(R.string.title_sectionProfile);
                 break;
 
+            //Note: dont add to backstack for other nav tabs
             case NavigationDrawerFragment.NAV_ENTRY_1:
-                mTitle = getString(R.string.nav_entry_1);
+                //mTitle = getString(R.string.nav_entry_1);
                 break;
 
             case NavigationDrawerFragment.NAV_ENTRY_2:
-                mTitle = getString(R.string.nav_entry_2);
+                if(mCurrentPos!=NavigationDrawerFragment.NAV_ENTRY_2) {
+                    transaction.replace(R.id.container, FriendFragment.newInstance(ParseUser.getCurrentUser().getObjectId()));
+                    transaction.addToBackStack("Navigation");
+                }
+                //mTitle = getString(R.string.nav_entry_2);
                 break;
 
             case NavigationDrawerFragment.NAV_ENTRY_3:
-                mTitle = getString(R.string.nav_entry_3);
+                //mTitle = getString(R.string.nav_entry_3);
                 break;
 
             case NavigationDrawerFragment.NAV_ENTRY_4:
-                mTitle = getString(R.string.nav_entry_4);
+                //mTitle = getString(R.string.nav_entry_4);
                 break;
 
             default:
-                mTitle = getString(R.string.nav_entry_1); //go to home as default
+                //mTitle = getString(R.string.nav_entry_1); //go to home as default
                 break;
         }
-
+        mCurrentPos=position;
         transaction.commit();
     }
 
 //    public void onSectionAttached(int position) {
 //        switch (position) {
-//            case 1:
-//                mTitle = getString(R.string.title_section1);
+//            case NavigationDrawerFragment.NAV_PROFILE:
+//                mTitle = getString(R.string.title_sectionProfile);
 //                break;
-//            case 2:
-//                mTitle = getString(R.string.title_section2);
+//            case NavigationDrawerFragment.NAV_ENTRY_1:
+//                mTitle = getString(R.string.nav_entry_1);
 //                break;
-//            case 3:
-//                mTitle = getString(R.string.title_section3);
+//            case NavigationDrawerFragment.NAV_ENTRY_2:
+//                mTitle = getString(R.string.nav_entry_2);
+//                break;
+//            case NavigationDrawerFragment.NAV_ENTRY_3:
+//                mTitle = getString(R.string.nav_entry_3);
+//                break;
+//            case NavigationDrawerFragment.NAV_ENTRY_4:
+//                mTitle = getString(R.string.nav_entry_4);
 //                break;
 //            default:
 //                mTitle = getString(R.string.title_default);
@@ -114,7 +143,6 @@ public class HomeActivity extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
     }
 
 
@@ -172,6 +200,23 @@ public class HomeActivity extends ActionBarActivity
                 }
             }
         });
+    }
+
+    public void friendSelected(ParseUser user){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction=fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.container, ProfileFragment.newInstance(user.getObjectId()));
+        transaction.addToBackStack("Friend selected");
+
+        transaction.commit();
+    }
+
+    public void messageFriend(ParseUser user){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction=fragmentManager.beginTransaction();
+        //open the messaging fragment
+        transaction.commit();
     }
 
 //

@@ -118,7 +118,7 @@ public class SignupActivity extends Activity {
                                     errorMsg=getString(R.string.invalid_email);
                                     break;
                                 case ParseException.EMAIL_TAKEN:
-                                    errorMsg=getString(R.string.username_taken);
+                                    errorMsg=getString(R.string.email_taken);
                                     break;
                                 default:
                                     errorMsg=getString(R.string.signup_failed);

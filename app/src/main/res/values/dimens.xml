@@ -25,6 +25,8 @@
     <dimen name="progress_mid">40dp</dimen>
 
     <dimen name="picture_small">40dp</dimen>
+    <dimen name="profile_picture_list">35dp</dimen>
+    <dimen name="profile_picture_main">60dp</dimen>
     <dimen name="nav_entry_icon">22dp</dimen>
 
     <dimen name="label_height">38dp</dimen>

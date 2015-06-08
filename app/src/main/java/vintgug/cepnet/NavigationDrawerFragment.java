@@ -21,6 +21,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 /**
@@ -63,6 +65,9 @@ public class NavigationDrawerFragment extends Fragment {
     ArrayList<TextView> navTextList = new ArrayList<>();
     ArrayList<ImageView> navIconList = new ArrayList<>();
     ArrayList<FrameLayout> navEntryList = new ArrayList<>();
+
+    TextView navProfileName;
+    TextView navProfileEmail;
 
     TextView navText1;
     TextView navText2;
@@ -127,6 +132,9 @@ public class NavigationDrawerFragment extends Fragment {
         nav3=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_3);
         nav4=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_4);
 
+        navProfileName=(TextView)mDrawerView.findViewById(R.id.navProfileName);
+        navProfileEmail=(TextView)mDrawerView.findViewById(R.id.navProfileEmail);
+
         navTextList.clear();
         navIconList.clear();
         navEntryList.clear();
@@ -155,6 +163,9 @@ public class NavigationDrawerFragment extends Fragment {
                 }
             });
         }
+
+        navProfileName.setText(ParseUser.getCurrentUser().getUsername());
+        navProfileEmail.setText(ParseUser.getCurrentUser().getEmail());
 
         //Edit this stuff to change functionality
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -208,7 +219,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host Activity */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.menu,             /* nav drawer image to replace 'Up' caret */
+                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -261,7 +272,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
-        navProfile.setBackgroundColor(getResources().getColor(R.color.nav_profile_background));
         //change menu colours
         unselectAll();
         if(position==NAV_ENTRY_1){
@@ -301,7 +311,9 @@ public class NavigationDrawerFragment extends Fragment {
             i.setColorFilter(getResources().getColor(R.color.nav_entry_unselected));
         }
         for(FrameLayout i:navEntryList){
-            i.setBackgroundColor(getResources().getColor(R.color.nav_drawer_background));
+            if(i!=navProfile) {
+                i.setBackgroundColor(getResources().getColor(R.color.nav_drawer_background));
+            }
         }
     }
 

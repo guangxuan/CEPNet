@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
                                                 if (!objects.get(0).getBoolean("emailVerified")) {
                                                     builder=new AlertDialog.Builder(LoginActivity.this);
                                                     builder.setMessage(R.string.not_verified)
-                                                            .setTitle(R.string.error_title)
+                                                            .setTitle(R.string.not_verified_title)
                                                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                                                 @Override
                                                                 public void onClick(DialogInterface dialog, int which) {

@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_friend_profile"
+        android:title="@string/action_friend_profile"
+        android:icon="@drawable/addfriendwhite"
+        android:orderInCategory="150"
+        app:showAsAction="ifRoom"/>
+</menu>
