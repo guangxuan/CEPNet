@@ -15,14 +15,25 @@
 
     <color name="nav_drawer_divider">#ff1c1c1c</color>
     <color name="nav_drawer_background">#ff393939</color>
-    <color name="nav_profile_background">#ff1a1a1a</color>
+    <color name="nav_profile_background">#ff002f9a</color>
     <color name="nav_profile_text">#fff0f0f0</color>
     <color name="nav_entry_unselected">#ff818181</color>
     <color name="nav_entry_selected">#ffdadada</color>
-    <color name="nav_background_selected">#ff262626</color>
+    <color name="nav_background_selected">#ff0048d3</color>
+    <color name="action_bar_color">#002f9a</color>
 
     <color name="profile_title_color">#ff252525</color>
     <color name="email_unverified">#ffbe2300</color>
     <color name="email_verified">#ff288300</color>
+    <color name="new_msg_background">#ff0048d3</color>
+    <color name="new_msg_text">#ff444444</color>
+    <color name="new_msg_text_background">#fff0f0f0</color>
+    <color name="new_msg_button">#fff0f0f0</color>
+    <color name="new_msg_hint">#ff858585</color>
+
+    <color name="message_1_background">#ff1c8dbc</color>
+    <color name="message_1_text">#fff0f0f0</color>
+    <color name="message_2_background">#ffcdcdcd</color>
+    <color name="message_2_text">#ff434343</color>
 
 </resources>

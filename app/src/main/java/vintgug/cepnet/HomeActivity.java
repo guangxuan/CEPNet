@@ -3,7 +3,12 @@ package vintgug.cepnet;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -13,11 +18,12 @@ import android.view.MenuItem;
 
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 
 public class HomeActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks , FriendFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks , FriendFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, MessageFragment.OnFragmentInteractionListener, UsersFragment.OnFragmentInteractionListener, HomeFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -26,6 +32,15 @@ public class HomeActivity extends ActionBarActivity
 
     public static final String FRIENDS="friends";
     public static final String FIELD_STATUS="status";
+    public static final String FIELD_PICTURE="profile_picture";
+
+    public static final String MESSAGE="message";
+    public static final String MESSAGE_RECIPIENT="message_recipient";
+    public static final String MESSAGE_AUTHOR="message_author";
+    public static final String MESSAGE_TEXT="message_text";
+
+    public static final int DEFAULT_PICTURE_ID=R.drawable.user;
+    static final int SELECT_PICTURE=83;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -34,22 +49,13 @@ public class HomeActivity extends ActionBarActivity
     int mCurrentPos;
 
     ParseUser currentUser;
-
     AlertDialog.Builder builder;
+    ProfileFragment fragmentToReturnOutput;
+    Bitmap mProfilePicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
-        builder = new AlertDialog.Builder(HomeActivity.this);
-
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
         currentUser = ParseUser.getCurrentUser();
         if(currentUser==null) {
             //show login screen
@@ -57,20 +63,45 @@ public class HomeActivity extends ActionBarActivity
             startActivity(intent);
             finish();
         }
+        else {
+            setContentView(R.layout.activity_home);
+            mNavigationDrawerFragment = (NavigationDrawerFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        mTitle=getString(R.string.app_name);
-        getSupportActionBar().setTitle(mTitle);
+            builder = new AlertDialog.Builder(HomeActivity.this);
 
-        onNavigationDrawerItemSelected(NavigationDrawerFragment.NAV_ENTRY_1);
-        mCurrentPos=NavigationDrawerFragment.NAV_ENTRY_1;
+            // Set up the drawer.
+            mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                restoreActionBar();
+            mTitle = getString(R.string.app_name);
+            getSupportActionBar().setTitle(mTitle);
+
+            onNavigationDrawerItemSelected(NavigationDrawerFragment.NAV_ENTRY_1);
+            mCurrentPos = NavigationDrawerFragment.NAV_ENTRY_1;
+
+            profilePictureChanged();
+
+            getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                @Override
+                public void onBackStackChanged() {
+                    restoreActionBar();
+                }
+            });
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = data.getData();
+                fragmentToReturnOutput.onProfilePictureSelected(getPath(selectedImageUri));
             }
-        });
+        }
 
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -101,6 +132,10 @@ public class HomeActivity extends ActionBarActivity
                 break;
 
             case NavigationDrawerFragment.NAV_ENTRY_3:
+                if(mCurrentPos!=NavigationDrawerFragment.NAV_ENTRY_3) {
+                    transaction.replace(R.id.container, UsersFragment.newInstance(ParseUser.getCurrentUser().getObjectId()));
+                    transaction.addToBackStack("Navigation");
+                }
                 //mTitle = getString(R.string.nav_entry_3);
                 break;
 
@@ -202,7 +237,7 @@ public class HomeActivity extends ActionBarActivity
         });
     }
 
-    public void friendSelected(ParseUser user){
+    public void userSelected(ParseUser user){
         FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction=fragmentManager.beginTransaction();
 
@@ -216,7 +251,57 @@ public class HomeActivity extends ActionBarActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction=fragmentManager.beginTransaction();
         //open the messaging fragment
+        transaction.replace(R.id.container, MessageFragment.newInstance(user));
+        transaction.addToBackStack("Messaging friend");
         transaction.commit();
+    }
+
+    public void selectProfilePicture(){
+        fragmentToReturnOutput=(ProfileFragment)getSupportFragmentManager().findFragmentById(R.id.container);
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECT_PICTURE);
+    }
+
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if( uri == null ) {
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if( cursor != null ){
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        // this is our fallback here
+        return uri.getPath();
+    }
+
+    public void profilePictureChanged(){
+        mProfilePicture=updateProfilePicture();
+        mNavigationDrawerFragment.setProfilePicView(mProfilePicture);
+    }
+
+    Bitmap updateProfilePicture(){
+        ParseFile profilePic=(ParseFile)currentUser.get(HomeActivity.FIELD_PICTURE);
+        if(profilePic==null){
+            return null;
+        }
+        else {
+            try {
+                byte[] data = profilePic.getData();
+                return BitmapFactory.decodeByteArray(data, 0, data.length);
+            }catch(Exception e){
+                return null;
+            }
+        }
     }
 
 //

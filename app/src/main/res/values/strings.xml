@@ -16,6 +16,7 @@
     <string name="action_unfriend_profile">Remove Friend</string>
     <string name="action_friend_profile">Add Friend</string>
     <string name="action_message_profile">Message Friend</string>
+    <string name="action_refresh_messages">Refresh Messages</string>
 
     <string name="error_title">Oops!</string>
     <string name="no_email">Please enter your email address.</string>
@@ -60,22 +61,39 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="dummy">Dummy Text</string>
-    <string name="dummy1">The quick brown muzammil jumped over the lazy muzammil. HUehuehuheuhue 360noScope MLG360 get rekt scrubs. #420blazeit Sm0keweeEveryday.\n YOLO</string>
+    <string name="dummy1">The quick brown muzammil jumped over the lazy muzammil. HUehuehuheuhue 360noScope MLG360 get rekt scrubs. #420blazeit Sm0keweeEveryday.\n YOLO 420 swagnemite ayyy lmao</string>
     <string name="dummy_email">trisomy_21@spectrum.au</string>
     <string name="verified">Unverified</string>
     <string name="unverified">Unverified</string>
     <string name="nav_entry_1">Home</string>
     <string name="nav_entry_2">Friends</string>
-    <string name="nav_entry_3">Homework</string>
+    <string name="nav_entry_3">Users</string>
     <string name="nav_entry_4">Classes</string>
 
     <string name="profile_title">User Profile</string>
     <string name="no_friend">You don\'t have any friends</string>
-    <string name="find_friend">Find and add them (if you have any) by using the search feature at the top of the screen.</string>
+    <string name="find_friend">Find and add them (if you have any) by using the search feature.</string>
     <string name="added_friend_1">You have added</string>
     <string name="added_friend_2">as a friend.</string>
     <string name="removed_friend_1">You have removed</string>
     <string name="removed_friend_2">from your friends list.</string>
     <string name="no_status">Hi!</string>
+    <string name="status_hint">Express yourself.</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="saved_profile_changes">The changes to your profile have been saved.</string>
+    <string name="not_saved_profile_changes">Your changes could not be saved. Please check the fields and try again.</string>
+    <string name="edit_profile_title">Edit Your Profile</string>
+    <string name="edit_profile_picture">CHANGE</string>
+    <string name="missing_picture_file">Error. Unable to find picture.</string>
+    <string name="profile_picture_changed">Your profile picture has been changed.</string>
+    <string name="no_users_1">No Users</string>
+    <string name="no_users_2">Ask your friends to join the fun! (if you have any)</string>
+    <string name="no_messages_1">No Messages</string>
+    <string name="no_messages_2">Neither of you have sent any messages.</string>
+    <string name="message_hint">Enter your message</string>
+    <string name="send_message">Send Message</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

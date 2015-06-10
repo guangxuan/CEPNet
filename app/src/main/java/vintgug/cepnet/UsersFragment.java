@@ -28,29 +28,30 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendFragment extends android.support.v4.app.Fragment {
+
+public class UsersFragment extends android.support.v4.app.Fragment {
     private OnFragmentInteractionListener mListener;
 
     final static String USER_ID="user_id";
     private View mFragmentView;
-    final ArrayList<ParseUser> mFriendUsers =new ArrayList<>();
+    final ArrayList<ParseUser> mUsersToDisplay =new ArrayList<>();
     ListView mUserList;
     LinearLayout mEmptyLayout;
-    friendAdapter adapter;
+    usersAdapter adapter;
     ProgressBar mLoadProgress;
     ParseUser currUser;
 
     Toast mToast;
 
-    public static FriendFragment newInstance(String user_id) {
-        FriendFragment fragment = new FriendFragment();
+    public static UsersFragment newInstance(String user_id) {
+        UsersFragment fragment = new UsersFragment();
         Bundle args = new Bundle();
         args.putString(USER_ID,user_id);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public FriendFragment() {
+    public UsersFragment() {
         // Required empty public constructor
     }
 
@@ -63,9 +64,9 @@ public class FriendFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mFragmentView=inflater.inflate(R.layout.fragment_friend, container, false);
-        mUserList=(ListView)mFragmentView.findViewById(R.id.friendList);
-        mEmptyLayout=(LinearLayout)mFragmentView.findViewById(R.id.noFriendsLayout);
+        mFragmentView=inflater.inflate(R.layout.fragment_users, container, false);
+        mUserList=(ListView)mFragmentView.findViewById(R.id.usersList);
+        mEmptyLayout=(LinearLayout)mFragmentView.findViewById(R.id.noUsersLayout);
         mLoadProgress =(ProgressBar)mFragmentView.findViewById(R.id.loadProgress);
 
         if (getArguments() != null) {
@@ -83,12 +84,12 @@ public class FriendFragment extends android.support.v4.app.Fragment {
         mLoadProgress.setVisibility(View.GONE);
 
         refreshList();
-        adapter = new friendAdapter(getActivity(), R.layout.friend_list_item, mFriendUsers);
+        adapter = new usersAdapter(getActivity(), R.layout.user_list_item, mUsersToDisplay);
         mUserList.setAdapter(adapter);
         mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ParseUser selectedUser=mFriendUsers.get(position);
+                ParseUser selectedUser=mUsersToDisplay.get(position);
                 //callback to main activity, fragment transition
                 mListener.userSelected(selectedUser);
             }
@@ -110,30 +111,30 @@ public class FriendFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    void refreshList(){
+    void refreshList(){ //remove friends from userlist
         mLoadProgress.setVisibility(View.VISIBLE);
-        mFriendUsers.clear();
+        mUsersToDisplay.clear();
 
-//        ParseQuery<ParseUser> query = ParseUser.getQuery();
-//        query.findInBackground(new FindCallback<ParseUser>() {
-//            @Override
-//            public void done(List<ParseUser> list, ParseException e) {
-//                mLoadProgress.setVisibility(View.GONE);
-//                if (e == null) {
-//                    mFriendUsers.addAll(list);
-//                    updateListVis();
-//                }
-//            }
-//        });
-
-        ParseRelation<ParseUser> relation=currUser.getRelation(HomeActivity.FRIENDS);
-        relation.getQuery().findInBackground(new FindCallback<ParseUser>() {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {
                 mLoadProgress.setVisibility(View.GONE);
-                if(e==null){
-                    mFriendUsers.addAll(list);
-                    updateListVis();
+                if (e == null) {
+                    mUsersToDisplay.addAll(list);
+                    mUsersToDisplay.remove(ParseUser.getCurrentUser());
+
+                    ParseRelation<ParseUser> relation=currUser.getRelation(HomeActivity.FRIENDS);
+                    relation.getQuery().findInBackground(new FindCallback<ParseUser>() {
+                        @Override
+                        public void done(List<ParseUser> list, ParseException e) {
+                            mLoadProgress.setVisibility(View.GONE);
+                            if (e == null) {
+                                mUsersToDisplay.removeAll(list);
+                                updateListVis();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -141,7 +142,7 @@ public class FriendFragment extends android.support.v4.app.Fragment {
     }
 
     void updateListVis() {
-        if (mFriendUsers.size() == 0) {
+        if (mUsersToDisplay.size() == 0) {
             mUserList.setVisibility(View.GONE);
             mEmptyLayout.setVisibility(View.VISIBLE);
         } else {
@@ -153,12 +154,12 @@ public class FriendFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    private class friendAdapter extends ArrayAdapter<ParseUser> {
+    private class usersAdapter extends ArrayAdapter<ParseUser> {
         Context context;
         int mResource;
         ArrayList<ParseUser> mUserList;
 
-        public friendAdapter(Context c, int resource, ArrayList<ParseUser> users){
+        public usersAdapter(Context c, int resource, ArrayList<ParseUser> users){
             super(c,resource,users);
             context=c;
             mResource=resource;
@@ -170,23 +171,21 @@ public class FriendFragment extends android.support.v4.app.Fragment {
             if(row==null){
                 row=((Activity)context).getLayoutInflater().inflate(mResource,parent,false);
             }
-            ImageView profilePicView=(ImageView)row.findViewById(R.id.friendProfilePicture);
-            TextView nameView=(TextView)row.findViewById(R.id.friendName);
-            ImageButton deleteButton=(ImageButton)row.findViewById(R.id.deleteFriendButton);
-            ImageButton messageButton=(ImageButton)row.findViewById(R.id.messageFriendButton);
-            deleteButton.setFocusable(false);
-            messageButton.setFocusable(false);
+            ImageView profilePicView=(ImageView)row.findViewById(R.id.userProfilePicture);
+            TextView nameView=(TextView)row.findViewById(R.id.userName);
+            ImageButton friendButton=(ImageButton)row.findViewById(R.id.addFriendButton);
+            friendButton.setFocusable(false);
             //Set stuff
 
             final ParseUser user=mUserList.get(position);
 
             nameView.setText(user.getUsername());
 
-            deleteButton.setOnClickListener(new View.OnClickListener() {
+            friendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ParseRelation<ParseUser> relation = currUser.getRelation(HomeActivity.FRIENDS);
-                    relation.remove(user);
+                    relation.add(user);
                     currUser.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
@@ -195,13 +194,14 @@ public class FriendFragment extends android.support.v4.app.Fragment {
                             if (mToast != null) {
                                 mToast.cancel();
                             }
-                            mToast = Toast.makeText(getActivity(), getString(R.string.removed_friend_1) + " " + user.getUsername() + " " + getString(R.string.removed_friend_2), Toast.LENGTH_SHORT);
+                            mToast = Toast.makeText(getActivity(), getString(R.string.added_friend_1) + " " + user.getUsername() + " " + getString(R.string.added_friend_2), Toast.LENGTH_SHORT);
                             mToast.show();
                         }
                     });
                 }
             });
 
+            //set profile pics
             ParseFile profilePic=(ParseFile)user.get(HomeActivity.FIELD_PICTURE);
             if(profilePic==null){
                 profilePicView.setImageDrawable(getResources().getDrawable(HomeActivity.DEFAULT_PICTURE_ID));
@@ -215,12 +215,6 @@ public class FriendFragment extends android.support.v4.app.Fragment {
                 }
             }
 
-            messageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.messageFriend(user);
-                }
-            });
 
             return row;
         }
@@ -229,7 +223,7 @@ public class FriendFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
-     public void onAttach(Activity activity) {
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -248,7 +242,6 @@ public class FriendFragment extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         //public void onFragmentInteraction(Uri uri);
         void userSelected(ParseUser user);
-        void messageFriend(ParseUser user);
     }
 
 }

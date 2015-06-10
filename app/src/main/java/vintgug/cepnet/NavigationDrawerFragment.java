@@ -3,6 +3,7 @@ package vintgug.cepnet;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -66,6 +67,7 @@ public class NavigationDrawerFragment extends Fragment {
     ArrayList<ImageView> navIconList = new ArrayList<>();
     ArrayList<FrameLayout> navEntryList = new ArrayList<>();
 
+    ImageView navProfilePicture;
     TextView navProfileName;
     TextView navProfileEmail;
 
@@ -116,6 +118,10 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerView = inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
 
+        if(ParseUser.getCurrentUser()==null){
+            return mDrawerView;
+        }
+
         navText1=(TextView)mDrawerView.findViewById(R.id.navText1);
         navText2=(TextView)mDrawerView.findViewById(R.id.navText2);
         navText3=(TextView)mDrawerView.findViewById(R.id.navText3);
@@ -132,6 +138,7 @@ public class NavigationDrawerFragment extends Fragment {
         nav3=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_3);
         nav4=(FrameLayout)mDrawerView.findViewById(NAV_ENTRY_4);
 
+        navProfilePicture=(ImageView)mDrawerView.findViewById(R.id.navProfilePictureView);
         navProfileName=(TextView)mDrawerView.findViewById(R.id.navProfileName);
         navProfileEmail=(TextView)mDrawerView.findViewById(R.id.navProfileEmail);
 
@@ -190,6 +197,14 @@ public class NavigationDrawerFragment extends Fragment {
         selectItem(mCurrentSelectedPosition);
 
         return mDrawerView;
+    }
+
+    void setProfilePicView(Bitmap picture){
+        if(picture==null){
+            navProfilePicture.setImageDrawable(getResources().getDrawable(HomeActivity.DEFAULT_PICTURE_ID));
+        }else {
+            navProfilePicture.setImageBitmap(picture);
+        }
     }
 
     public boolean isDrawerOpen() {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_small">
+
+    <ImageView
+        android:layout_width="@dimen/profile_picture_list"
+        android:layout_height="@dimen/profile_picture_list"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:layout_marginRight="@dimen/padding_small"
+        android:src="@drawable/user"
+        android:id="@+id/userProfilePicture"
+        android:scaleType="centerInside"
+        android:layout_gravity="center_vertical"/>
+    
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="5.5"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_mid_large"
+        android:padding="@dimen/padding_extra_small"
+        android:textColor="@color/main_title_text_color"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:text="@string/dummy"
+        android:layout_gravity="start|center_vertical"
+        android:id="@+id/userName"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_weight="1.3"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:padding="@dimen/padding_extra_small"
+        android:tint="@color/button_color"
+        android:gravity="end"
+        android:layout_gravity="end"
+        android:background="#00000000"
+        android:src="@drawable/addfriend"
+        android:id="@+id/addFriendButton"/>
+
+</LinearLayout>

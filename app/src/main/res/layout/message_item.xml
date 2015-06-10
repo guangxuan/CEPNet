@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="@dimen/padding_extra_extra_small"
+    android:paddingBottom="@dimen/padding_extra_extra_small"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_small"
+    android:paddingRight="@dimen/padding_small">
+
+    <!--Deliberately placed button to obstruct onclick event on list-->
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:id="@+id/messageLayout1">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:id="@+id/messageLayout2">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_medium"
+                    android:paddingTop="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:text="@string/dummy1"
+                    android:textColor="@color/message_1_text"
+                    android:background="@color/message_1_background"
+                    android:id="@+id/messageContentView"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_extra_small"
+                    android:textStyle="italic"
+                    android:paddingTop="@dimen/padding_extra_extra_small"
+                    android:paddingBottom="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:text="@string/dummy"
+                    android:textColor="@color/message_1_text"
+                    android:background="@color/message_1_background"
+                    android:id="@+id/messageDateView"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -17,12 +17,30 @@
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/padding_extra_small"
         >
-        <ImageView
-            android:layout_width="@dimen/profile_picture_main"
-            android:layout_height="@dimen/profile_picture_main"
-            android:src="@drawable/user"
-            android:scaleType="centerInside"
-            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="@dimen/profile_picture_main"
+                android:layout_height="@dimen/profile_picture_main"
+                android:src="@drawable/plus"
+                android:id="@+id/ProfilePictureView"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_profile_picture"
+                android:textColor="@color/button_color"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:layout_marginTop="@dimen/padding_extra_extra_small"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/ChangePictureView"
+                android:visibility="gone"
+                android:gravity="center"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +49,7 @@
             android:layout_marginBottom="@dimen/padding_extra_extra_small"
             android:layout_marginStart="@dimen/padding_small"
             android:layout_marginLeft="@dimen/padding_small"
+            android:layout_gravity="center_vertical"
             >
             <TextView
                 android:id="@+id/UsernameTextView"
@@ -53,7 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="7"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
+                    android:textSize="@dimen/text_mid_small"
                     android:text="@string/dummy_email"
                     android:singleLine="true"
                     android:ellipsize="marquee"
@@ -63,10 +82,11 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
+                    android:textSize="@dimen/text_mid_small"
                     android:layout_marginStart="@dimen/padding_extra_small"
                     android:layout_marginLeft="@dimen/padding_extra_small"
                     android:text="@string/unverified"
+                    android:gravity="end"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:layout_gravity="end|center_horizontal"/>
@@ -78,14 +98,14 @@
     <TextView
         style="@style/label"
         android:padding="0dp"
-        android:layout_marginTop="@dimen/padding_extra_big"
+        android:layout_marginTop="@dimen/padding_big"
         android:layout_marginBottom="@dimen/padding_extra_extra_small"
         android:text="@string/status_label"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/text_mid_large_2"
         android:text="@string/dummy1"
         android:id="@+id/StatusTextView"/>
 

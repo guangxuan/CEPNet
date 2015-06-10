@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="vintgug.cepnet.UsersFragment"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/usersList"/>
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Inverse"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_mid"
+            android:layout_marginTop="@dimen/padding_extra_big"
+            android:indeterminate="true"
+            android:indeterminateDuration="1000"
+            android:indeterminateOnly="true"
+            android:visibility="visible"
+            android:id="@+id/loadProgress"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginRight="@dimen/padding_small"
+            android:id="@+id/noUsersLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_extra_extra_large"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/no_users_1"
+                android:textColor="@color/title_text_color"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_medium"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/no_users_2"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
+

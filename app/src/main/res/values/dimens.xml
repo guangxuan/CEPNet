@@ -24,6 +24,7 @@
 
     <dimen name="progress_mid">40dp</dimen>
 
+    <dimen name="picture_extra_small">28dp</dimen>
     <dimen name="picture_small">40dp</dimen>
     <dimen name="profile_picture_list">35dp</dimen>
     <dimen name="profile_picture_main">60dp</dimen>
@@ -38,6 +39,7 @@
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_mid_small">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
+    <dimen name="text_extra_small">11sp</dimen>
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
