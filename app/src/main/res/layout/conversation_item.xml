@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_extra_small">
+
+    <ImageView
+        android:layout_width="@dimen/profile_picture_list"
+        android:layout_height="@dimen/profile_picture_list"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:layout_marginRight="@dimen/padding_small"
+        android:src="@drawable/user"
+        android:id="@+id/conversationPicture"
+        android:scaleType="centerInside"
+        android:layout_gravity="center_vertical"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="5.5"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_extra_small"
+        android:paddingRight="@dimen/padding_extra_small"
+        android:paddingTop="@dimen/padding_extra_extra_small_2"
+        android:paddingBottom="@dimen/padding_extra_extra_small_2"
+        android:layout_marginRight="@dimen/padding_extra_small"
+        android:layout_marginEnd="@dimen/padding_extra_small"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="8.5"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_mid_large_2"
+                android:textColor="@color/main_title_text_color"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:text="@string/dummy"
+                android:layout_gravity="start|center_vertical"
+                android:id="@+id/convName"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:tint="@color/button_color"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:layout_gravity="end"
+                android:padding="@dimen/padding_extra_extra_small"
+                android:src="@drawable/retrn"
+                android:id="@+id/isUserSendView"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_mid_small"
+            android:layout_marginTop="@dimen/padding_extra_extra_small_2"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="@string/dummy1"
+            android:layout_gravity="start|center_vertical"
+            android:id="@+id/messageContentView"/>
+
+    </LinearLayout>
+
+</LinearLayout>

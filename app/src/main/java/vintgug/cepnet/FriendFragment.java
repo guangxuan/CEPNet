@@ -31,6 +31,8 @@ import java.util.List;
 public class FriendFragment extends android.support.v4.app.Fragment {
     private OnFragmentInteractionListener mListener;
 
+    static final int FRAGMENT_ID=NavigationDrawerFragment.NAV_ENTRY_2;
+
     final static String USER_ID="user_id";
     private View mFragmentView;
     final ArrayList<ParseUser> mFriendUsers =new ArrayList<>();
@@ -62,8 +64,8 @@ public class FriendFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         mFragmentView=inflater.inflate(R.layout.fragment_friend, container, false);
+        mListener.onSectionAttached(FRAGMENT_ID);
         mUserList=(ListView)mFragmentView.findViewById(R.id.friendList);
         mEmptyLayout=(LinearLayout)mFragmentView.findViewById(R.id.noFriendsLayout);
         mLoadProgress =(ProgressBar)mFragmentView.findViewById(R.id.loadProgress);
@@ -249,6 +251,7 @@ public class FriendFragment extends android.support.v4.app.Fragment {
         //public void onFragmentInteraction(Uri uri);
         void userSelected(ParseUser user);
         void messageFriend(ParseUser user);
+        void onSectionAttached(int position);
     }
 
 }

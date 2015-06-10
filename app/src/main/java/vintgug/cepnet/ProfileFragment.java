@@ -34,6 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +43,8 @@ import java.util.List;
  */
 public class ProfileFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
+
+    static int FRAGMENT_ID;
 
     final static String USER_ID="user_id";
     final static String IMAGE_NAME="profile_picture";
@@ -81,6 +84,14 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView=inflater.inflate(R.layout.fragment_profile, container, false);
         String currUserId=getArguments().getString(USER_ID);
+
+        if (getArguments().getString(USER_ID).equals(ParseUser.getCurrentUser().getObjectId())){
+            FRAGMENT_ID=NavigationDrawerFragment.NAV_PROFILE;
+        }
+        else{
+            FRAGMENT_ID=HomeActivity.NAV_FRIEND_PROFILE;
+        }
+        mListener.onSectionAttached(FRAGMENT_ID);
 
         mUsernameTextView= (TextView)rootView.findViewById(R.id.UsernameTextView);
         mEmailTextView= (TextView)rootView.findViewById(R.id.EmailTextView);
@@ -158,7 +169,7 @@ public class ProfileFragment extends Fragment {
             profilePic.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                         mPictureView.setImageBitmap(bitmap);
                     } else {
                         mPictureView.setImageDrawable(getResources().getDrawable(HomeActivity.DEFAULT_PICTURE_ID));
@@ -235,6 +246,9 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void done(ParseException e) {
                     getActivity().supportInvalidateOptionsMenu();
+                    ArrayList<ParseUser> newlist=new ArrayList<ParseUser>();
+                    newlist.add(currentUser);
+                    mListener.createNotification(ParseUser.getCurrentUser().getUsername() + " " + getString(R.string.notif_addfriend),newlist);
                     //display toast
                     if (mToast != null) {
                         mToast.cancel();
@@ -264,6 +278,8 @@ public class ProfileFragment extends Fragment {
 
         }
         else if(item.getItemId()==R.id.action_edit_profile){
+            final String originalName=ParseUser.getCurrentUser().getUsername();
+            final String originalStatus=ParseUser.getCurrentUser().getString(HomeActivity.FIELD_STATUS);
             mEditDialog=new Dialog(getActivity());
             mEditDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             mEditDialog.setCanceledOnTouchOutside(false);
@@ -311,6 +327,12 @@ public class ProfileFragment extends Fragment {
                             loadProgress.setVisibility(View.GONE);
                             saveButton.setVisibility(View.VISIBLE);
                             if (e == null) {
+                                if(!ParseUser.getCurrentUser().getUsername().equals(originalName)) {
+                                    mListener.createNotification(originalName+" "+getString(R.string.notif_name_changed)+" "+ParseUser.getCurrentUser().getUsername(),getFriendList());
+                                }
+                                if(!ParseUser.getCurrentUser().getString(HomeActivity.FIELD_STATUS).equals(originalStatus)){
+                                    mListener.createNotification(ParseUser.getCurrentUser().getUsername()+" "+getString(R.string.notif_status_changed)+" "+ParseUser.getCurrentUser().getString(HomeActivity.FIELD_STATUS),getFriendList());
+                                }
                                 if (mToast != null) {
                                     mToast.cancel();
                                 }
@@ -340,6 +362,17 @@ public class ProfileFragment extends Fragment {
             mListener.messageFriend(currentUser);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    ArrayList<ParseUser> getFriendList(){
+        ArrayList<ParseUser> result=new ArrayList<>();
+        ParseRelation<ParseUser> relation=ParseUser.getCurrentUser().getRelation(HomeActivity.FRIENDS);
+        try {
+            result.addAll(relation.getQuery().find());
+            return result;
+        }catch(Exception e){
+            return result;
+        }
     }
 
     void refreshFields(){
@@ -396,6 +429,8 @@ public class ProfileFragment extends Fragment {
         void selectProfilePicture();
         void profilePictureChanged();
         void messageFriend(ParseUser user);
+        void createNotification(String msg,ArrayList<ParseUser> recipients);
+        void onSectionAttached(int position);
     }
 
 }

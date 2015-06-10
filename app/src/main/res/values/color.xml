@@ -5,35 +5,38 @@
     <color name="spinner_color_1">#ffffffff</color>
     <color name="spinner_color_2">#ff444444</color>
     <color name="spinner_color_3">#ff444444</color>
-    <color name="label_text_color">#ff444444</color>
-    <color name="main_title_text_color">#ff222222</color>
-    <color name="title_text_color">#ff222222</color>
+    <color name="label_text_color">#ff0e32b7</color>
+    <color name="main_title_text_color">#ff071d6f</color>
+    <color name="title_text_color">#ff071d6f</color>
     <color name="label_text_color_2">#ff444444</color>
     <color name="static_button">#fffffda7</color>
     <color name="unclickable_color">#ffb1b1b1</color>
-    <color name="button_color">#ff444444</color>
+    <color name="button_color">#ff071d6f</color>
+    <color name="login_backing">#ff0e32b7</color>
+    <color name="login_backing_2">#ffffffff</color>
+    <color name="login_title_text">#ffd1e8ff</color>
 
     <color name="nav_drawer_divider">#ff1c1c1c</color>
-    <color name="nav_drawer_background">#ff393939</color>
-    <color name="nav_profile_background">#ff002f9a</color>
-    <color name="nav_profile_text">#fff0f0f0</color>
-    <color name="nav_entry_unselected">#ff818181</color>
-    <color name="nav_entry_selected">#ffdadada</color>
-    <color name="nav_background_selected">#ff0048d3</color>
+    <color name="nav_drawer_background">#ff026a82</color>
+    <color name="nav_profile_background">#ff005281</color>
+    <color name="nav_profile_text">#fff5f5f5</color>
+    <color name="nav_entry_unselected">#ff6cacb8</color>
+    <color name="nav_entry_selected">#fff5f5f5</color>
+    <color name="nav_background_selected">#ff038aaa</color>
     <color name="action_bar_color">#002f9a</color>
 
-    <color name="profile_title_color">#ff252525</color>
+    <color name="profile_title_color">#ff071d6f</color>
     <color name="email_unverified">#ffbe2300</color>
     <color name="email_verified">#ff288300</color>
-    <color name="new_msg_background">#ff0048d3</color>
+    <color name="new_msg_background">#ff2e4fcd</color>
     <color name="new_msg_text">#ff444444</color>
     <color name="new_msg_text_background">#fff0f0f0</color>
     <color name="new_msg_button">#fff0f0f0</color>
     <color name="new_msg_hint">#ff858585</color>
 
-    <color name="message_1_background">#ff1c8dbc</color>
+    <color name="message_1_background">#ff4d69cd</color>
     <color name="message_1_text">#fff0f0f0</color>
-    <color name="message_2_background">#ffcdcdcd</color>
-    <color name="message_2_text">#ff434343</color>
+    <color name="message_2_background">#ff39b36b</color>
+    <color name="message_2_text">#fff0f0f0</color>
 
 </resources>

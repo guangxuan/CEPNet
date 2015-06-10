@@ -18,11 +18,10 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="@dimen/progress_mid"
-            android:layout_marginTop="@dimen/padding_extra_big"
             android:indeterminate="true"
             android:indeterminateDuration="1000"
             android:indeterminateOnly="true"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/loadProgress"
             />
         <LinearLayout

@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/signup_title"
+        android:textStyle="italic"
         android:id="@+id/SignupButton"/>
 
     <TextView
@@ -78,14 +79,21 @@
         android:id="@+id/SignupProgress"
         />
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal|bottom"
-        android:padding="@dimen/padding_small"
-        android:clickable="true"
-        android:text="@string/login_button"
-        android:textSize="@dimen/text_mid_small"
-        android:id="@+id/LoginButton"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:padding="@dimen/padding_small"
+            android:clickable="true"
+            android:text="@string/login_button"
+            android:textSize="@dimen/text_mid_small"
+            android:id="@+id/LoginButton"/>
+
+    </FrameLayout>
+
 
 </LinearLayout>

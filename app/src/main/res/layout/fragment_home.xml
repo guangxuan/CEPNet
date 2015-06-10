@@ -1,9 +1,97 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="vintgug.cepnet.HomeFragment">
+    android:layout_height="match_parent" tools:context="vintgug.cepnet.HomeFragment"
+    android:layout_marginTop="@dimen/padding_extra_small"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        <TextView
+            style="@style/label"
+            android:padding="@dimen/padding_extra_small"
+            android:layout_marginBottom="@dimen/padding_extra_extra_small_neg"
+            android:text="@string/notification_label"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:id="@+id/notificationLabel"/>
+        
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:layout_marginBottom="@dimen/padding_medium"
+            android:id="@+id/notificationLayout">
 
-</FrameLayout>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notificationListView"/>
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/progress_mid"
+                android:indeterminate="true"
+                android:indeterminateDuration="1000"
+                android:indeterminateOnly="true"
+                android:visibility="visible"
+                android:id="@+id/notificationLoadProgress"
+                />
+
+        </FrameLayout>
+
+        <TextView
+            style="@style/label"
+            android:padding="@dimen/padding_extra_small"
+            android:layout_marginBottom="@dimen/padding_extra_extra_small_neg"
+            android:text="@string/messages_label"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8.5">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/conversationListView"
+                />
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/progress_mid"
+                android:indeterminate="true"
+                android:indeterminateDuration="1000"
+                android:indeterminateOnly="true"
+                android:visibility="visible"
+                android:id="@+id/convLoadProgress"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_marginRight="@dimen/padding_medium"
+                android:id="@+id/noConversationLayout">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_extra_extra_large"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/no_conversation_1"
+                    android:textColor="@color/title_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/no_conversation_2"/>
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+

@@ -19,7 +19,11 @@ import android.view.MenuItem;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
 
 
 public class HomeActivity extends ActionBarActivity
@@ -39,7 +43,15 @@ public class HomeActivity extends ActionBarActivity
     public static final String MESSAGE_AUTHOR="message_author";
     public static final String MESSAGE_TEXT="message_text";
 
+    public static final String NOTIFICATION="notification";
+    public static final String NOTIFICATION_RECIPIENTS="notification_recipient";
+    public static final String NOTIFICATION_TEXT="notification_text";
+
     public static final int DEFAULT_PICTURE_ID=R.drawable.user;
+
+    public static final int NAV_MESSAGE=40234988;
+    public static final int NAV_FRIEND_PROFILE=120912471;
+
     static final int SELECT_PICTURE=83;
 
     /**
@@ -79,12 +91,15 @@ public class HomeActivity extends ActionBarActivity
             onNavigationDrawerItemSelected(NavigationDrawerFragment.NAV_ENTRY_1);
             mCurrentPos = NavigationDrawerFragment.NAV_ENTRY_1;
 
-            profilePictureChanged();
+            mProfilePicture=updateProfilePicture();
+            mNavigationDrawerFragment.setProfilePicView(mProfilePicture);
 
             getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
                 @Override
                 public void onBackStackChanged() {
-                    restoreActionBar();
+                    if (!mNavigationDrawerFragment.isDrawerOpen()) {
+                        restoreActionBar();
+                    }
                 }
             });
         }
@@ -120,6 +135,10 @@ public class HomeActivity extends ActionBarActivity
 
             //Note: dont add to backstack for other nav tabs
             case NavigationDrawerFragment.NAV_ENTRY_1:
+                if(mCurrentPos!=NavigationDrawerFragment.NAV_ENTRY_1) {
+                    transaction.replace(R.id.container, HomeFragment.newInstance());
+                    transaction.addToBackStack("Navigation");
+                }
                 //mTitle = getString(R.string.nav_entry_1);
                 break;
 
@@ -151,33 +170,62 @@ public class HomeActivity extends ActionBarActivity
         transaction.commit();
     }
 
-//    public void onSectionAttached(int position) {
-//        switch (position) {
-//            case NavigationDrawerFragment.NAV_PROFILE:
-//                mTitle = getString(R.string.title_sectionProfile);
-//                break;
-//            case NavigationDrawerFragment.NAV_ENTRY_1:
-//                mTitle = getString(R.string.nav_entry_1);
-//                break;
-//            case NavigationDrawerFragment.NAV_ENTRY_2:
-//                mTitle = getString(R.string.nav_entry_2);
-//                break;
-//            case NavigationDrawerFragment.NAV_ENTRY_3:
-//                mTitle = getString(R.string.nav_entry_3);
-//                break;
-//            case NavigationDrawerFragment.NAV_ENTRY_4:
-//                mTitle = getString(R.string.nav_entry_4);
-//                break;
-//            default:
-//                mTitle = getString(R.string.title_default);
-//                break;
-//        }
-//    }
+    public void onSectionAttached(int position) {
+        mCurrentPos=position;
+        mNavigationDrawerFragment.setHighlightSection(position);
+        switch (position) {
+            case NavigationDrawerFragment.NAV_PROFILE:
+                mTitle = getString(R.string.title_sectionProfile);
+                break;
+            case NavigationDrawerFragment.NAV_ENTRY_1:
+                mTitle = getString(R.string.nav_entry_1);
+                break;
+            case NavigationDrawerFragment.NAV_ENTRY_2:
+                mTitle = getString(R.string.nav_entry_2);
+                break;
+            case NavigationDrawerFragment.NAV_ENTRY_3:
+                mTitle = getString(R.string.nav_entry_3);
+                break;
+            case NavigationDrawerFragment.NAV_ENTRY_4:
+                mTitle = getString(R.string.nav_entry_4);
+                break;
+            case NAV_FRIEND_PROFILE:
+                mTitle = getString(R.string.title_sectionOtherProfile);
+                break;
+            case NAV_MESSAGE:
+                //get username of messagee
+                MessageFragment fragment=(MessageFragment)getSupportFragmentManager().findFragmentById(R.id.container);
+                mTitle=fragment.getTitle();
+                break;
+            default:
+                mTitle = getString(R.string.title_default);
+                break;
+        }
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+            restoreActionBar();
+        }
+    }
+
+    public void createNotification(String message,ArrayList<ParseUser> recipients){ //call this when adding you friend, updating profile status or picture or name
+        ParseObject newNotification=new ParseObject(NOTIFICATION);
+        newNotification.put(NOTIFICATION_TEXT,message);
+        newNotification.put(NOTIFICATION_RECIPIENTS,recipients);
+        newNotification.saveInBackground();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mCurrentPos==NavigationDrawerFragment.NAV_ENTRY_1){
+            finish();
+        }
+        super.onBackPressed();
+    }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(mTitle);
     }
 
 
@@ -200,11 +248,6 @@ public class HomeActivity extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if(id==R.id.action_logout){
             logout();
@@ -243,8 +286,8 @@ public class HomeActivity extends ActionBarActivity
 
         transaction.replace(R.id.container, ProfileFragment.newInstance(user.getObjectId()));
         transaction.addToBackStack("Friend selected");
-
         transaction.commit();
+        mCurrentPos=NAV_FRIEND_PROFILE;
     }
 
     public void messageFriend(ParseUser user){
@@ -254,6 +297,7 @@ public class HomeActivity extends ActionBarActivity
         transaction.replace(R.id.container, MessageFragment.newInstance(user));
         transaction.addToBackStack("Messaging friend");
         transaction.commit();
+        mCurrentPos=NAV_MESSAGE;
     }
 
     public void selectProfilePicture(){
@@ -285,8 +329,20 @@ public class HomeActivity extends ActionBarActivity
     }
 
     public void profilePictureChanged(){
+        createNotification(ParseUser.getCurrentUser().getUsername()+" "+getString(R.string.notif_picture_changed),getFriendList());
         mProfilePicture=updateProfilePicture();
         mNavigationDrawerFragment.setProfilePicView(mProfilePicture);
+    }
+
+    ArrayList<ParseUser> getFriendList(){
+        ArrayList<ParseUser> result=new ArrayList<>();
+        ParseRelation<ParseUser> relation=ParseUser.getCurrentUser().getRelation(HomeActivity.FRIENDS);
+        try {
+            result.addAll(relation.getQuery().find());
+            return result;
+        }catch(Exception e){
+            return result;
+        }
     }
 
     Bitmap updateProfilePicture(){

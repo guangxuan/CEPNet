@@ -35,8 +35,8 @@
                     android:paddingLeft="@dimen/padding_small"
                     android:paddingRight="@dimen/padding_small"
                     android:text="@string/dummy1"
-                    android:textColor="@color/message_1_text"
-                    android:background="@color/message_1_background"
+                    android:textColor="@color/message_2_text"
+                    android:background="@color/message_2_background"
                     android:id="@+id/messageContentView"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                     android:paddingLeft="@dimen/padding_small"
                     android:paddingRight="@dimen/padding_small"
                     android:text="@string/dummy"
-                    android:textColor="@color/message_1_text"
-                    android:background="@color/message_1_background"
+                    android:textColor="@color/message_2_text"
+                    android:background="@color/message_2_background"
                     android:id="@+id/messageDateView"/>
             </LinearLayout>
 

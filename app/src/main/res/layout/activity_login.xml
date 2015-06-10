@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin_custom"
     android:paddingRight="@dimen/activity_horizontal_margin_custom"
-    android:paddingTop="@dimen/activity_vertical_margin_custom"
     android:paddingBottom="@dimen/activity_vertical_margin_custom"
+    android:background="@color/login_backing_2"
     android:orientation="vertical"
     tools:context="vintgug.cepnet.LoginActivity">
 
@@ -11,10 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        android:background="@color/login_backing">
 
         <TextView
             style="@style/login_title"
+            android:textColor="@color/login_title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_title"/>
@@ -80,17 +82,21 @@
             android:id="@+id/loginProgress"
             />
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|bottom"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
             android:padding="@dimen/padding_small"
             android:textSize="@dimen/text_mid_small"
             android:clickable="true"
             android:text="@string/sign_up_button"
             android:id="@+id/SignupButton"/>
 
-
+        </FrameLayout>
 
     </LinearLayout>
 </LinearLayout>

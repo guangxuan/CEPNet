@@ -44,6 +44,8 @@
                 android:textSize="@dimen/text_medium"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_marginRight="@dimen/padding_medium"
                 android:text="@string/no_users_2"/>
         </LinearLayout>
     </FrameLayout>

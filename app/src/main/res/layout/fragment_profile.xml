@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="@dimen/profile_picture_main"
                 android:layout_height="@dimen/profile_picture_main"
-                android:src="@drawable/plus"
+                android:src="@drawable/user"
                 android:id="@+id/ProfilePictureView"
                 android:scaleType="centerInside"
                 android:layout_gravity="center_vertical"/>

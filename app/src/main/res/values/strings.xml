@@ -2,11 +2,12 @@
     <string name="app_name">CEPnet</string>
 
     <string name="title_sectionProfile">Your Profile</string>
+    <string name="title_sectionOtherProfile">User Profile</string>
     <string name="title_default">CEPnet</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_signup">SignupActivity</string>
-    <string name="signup_title">Sign Up</string>
+    <string name="signup_title">SIGN UP</string>
     <string name="notnew_title">Not new?</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
@@ -17,6 +18,7 @@
     <string name="action_friend_profile">Add Friend</string>
     <string name="action_message_profile">Message Friend</string>
     <string name="action_refresh_messages">Refresh Messages</string>
+    <string name="action_refresh_homepage">Refresh Homepage</string>
 
     <string name="error_title">Oops!</string>
     <string name="no_email">Please enter your email address.</string>
@@ -51,7 +53,7 @@
     <string name="status_label">status</string>
 
     <string name="not_verified">Your email address is not yet verified. Please check your email and verify your email address.</string>
-    <string name="not_verified_title">Email Verification</string>
+    <string name="not_verified_title">Reminder - Email Verification</string>
     <string name="signup_success_title">Success!</string>
     <string name="signup_success_1">Your CEPnet account has been successfully created. However, your email address needs to be verified before you can use all the features. An email will be sent to</string>
     <string name="signup_success_2">with instructions on how to verify your email address.</string>
@@ -63,7 +65,7 @@
     <string name="dummy">Dummy Text</string>
     <string name="dummy1">The quick brown muzammil jumped over the lazy muzammil. HUehuehuheuhue 360noScope MLG360 get rekt scrubs. #420blazeit Sm0keweeEveryday.\n YOLO 420 swagnemite ayyy lmao</string>
     <string name="dummy_email">trisomy_21@spectrum.au</string>
-    <string name="verified">Unverified</string>
+    <string name="verified">Verified</string>
     <string name="unverified">Unverified</string>
     <string name="nav_entry_1">Home</string>
     <string name="nav_entry_2">Friends</string>
@@ -87,13 +89,19 @@
     <string name="missing_picture_file">Error. Unable to find picture.</string>
     <string name="profile_picture_changed">Your profile picture has been changed.</string>
     <string name="no_users_1">No Users</string>
-    <string name="no_users_2">Ask your friends to join the fun! (if you have any)</string>
+    <string name="no_users_2">Either that, or you\'ve added all of them to your friends list.</string>
     <string name="no_messages_1">No Messages</string>
     <string name="no_messages_2">Neither of you have sent any messages.</string>
+    <string name="no_conversation_1">No Messages</string>
+    <string name="no_conversation_2">You have neither received nor sent any messages to your friends.</string>
     <string name="message_hint">Enter your message</string>
     <string name="send_message">Send Message</string>
+    <string name="notification_label">notifications</string>
+    <string name="messages_label">recent messages</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notif_addfriend">has added you as a friend.</string>
+    <string name="notif_status_changed">has updated his/her status:</string>
+    <string name="notif_picture_changed">has updated his/her profile picture.</string>
+    <string name="notif_name_changed">has changed his/her username to</string>
 
 </resources>

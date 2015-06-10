@@ -32,6 +32,8 @@ import java.util.List;
 public class UsersFragment extends android.support.v4.app.Fragment {
     private OnFragmentInteractionListener mListener;
 
+    static final int FRAGMENT_ID=NavigationDrawerFragment.NAV_ENTRY_3;
+
     final static String USER_ID="user_id";
     private View mFragmentView;
     final ArrayList<ParseUser> mUsersToDisplay =new ArrayList<>();
@@ -65,6 +67,7 @@ public class UsersFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
 
         mFragmentView=inflater.inflate(R.layout.fragment_users, container, false);
+        mListener.onSectionAttached(FRAGMENT_ID);
         mUserList=(ListView)mFragmentView.findViewById(R.id.usersList);
         mEmptyLayout=(LinearLayout)mFragmentView.findViewById(R.id.noUsersLayout);
         mLoadProgress =(ProgressBar)mFragmentView.findViewById(R.id.loadProgress);
@@ -191,6 +194,9 @@ public class UsersFragment extends android.support.v4.app.Fragment {
                         public void done(ParseException e) {
                             //display toast
                             refreshList();
+                            ArrayList<ParseUser> newlist=new ArrayList<ParseUser>();
+                            newlist.add(user);
+                            mListener.createNotification(ParseUser.getCurrentUser().getUsername() + " " + getString(R.string.notif_addfriend), newlist);
                             if (mToast != null) {
                                 mToast.cancel();
                             }
@@ -242,6 +248,8 @@ public class UsersFragment extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         //public void onFragmentInteraction(Uri uri);
         void userSelected(ParseUser user);
+        void createNotification(String msg,ArrayList<ParseUser> recipients);
+        void onSectionAttached(int position);
     }
 
 }

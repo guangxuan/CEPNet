@@ -33,6 +33,9 @@ import java.util.Date;
 import java.util.List;
 
 public class MessageFragment extends android.support.v4.app.Fragment {
+
+    static final int FRAGMENT_ID=HomeActivity.NAV_MESSAGE;
+
     private static final String MESSAGE_TO = "conversation_parter";
     private ParseUser mMessageTo;
 
@@ -73,6 +76,7 @@ public class MessageFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_message, container, false);
+        mListener.onSectionAttached(FRAGMENT_ID);
         mLoadProgressBar=(ProgressBar)view.findViewById(R.id.loadProgress);
         mNoMessagesLayout=(LinearLayout)view.findViewById(R.id.noMessagesLayout);
         mMessageListView=(ListView)view.findViewById(R.id.messageList);
@@ -148,6 +152,10 @@ public class MessageFragment extends android.support.v4.app.Fragment {
         catch(Exception e){
             return null;
         }
+    }
+
+    public String getTitle(){
+        return getUserWithId(getArguments().getString(MESSAGE_TO)).getUsername();
     }
 
     void refreshMessages(){
@@ -296,6 +304,7 @@ public class MessageFragment extends android.support.v4.app.Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+        void onSectionAttached(int position);
     }
 
 

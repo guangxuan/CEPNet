@@ -318,6 +318,32 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
+    public void setHighlightSection(int position){
+        mCurrentSelectedPosition = position;
+        //change menu colours
+        unselectAll();
+        if(position==NAV_ENTRY_1){
+            navText1.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon1.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+            nav1.setBackgroundColor(getResources().getColor(R.color.nav_background_selected));
+        }
+        else if(position==NAV_ENTRY_2){
+            navText2.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon2.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+            nav2.setBackgroundColor(getResources().getColor(R.color.nav_background_selected));
+        }
+        else if(position==NAV_ENTRY_3){
+            navText3.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon3.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+            nav3.setBackgroundColor(getResources().getColor(R.color.nav_background_selected));
+        }
+        else if(position==NAV_ENTRY_4){
+            navText4.setTextColor(getResources().getColor(R.color.nav_entry_selected));
+            navIcon4.setColorFilter(getResources().getColor(R.color.nav_entry_selected));
+            nav4.setBackgroundColor(getResources().getColor(R.color.nav_background_selected));
+        }
+    }
+
     private void unselectAll(){
         for(TextView t:navTextList){
             t.setTextColor(getResources().getColor(R.color.nav_entry_unselected));
@@ -375,13 +401,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //selects the action bar thingies
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-//        if (item.getItemId() == R.id.action_example) {
-//            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
+            return true;}
 
         return super.onOptionsItemSelected(item);
     }
